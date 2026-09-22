@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portafolio",
+  "compatibility_date": "2026-09-01",
+  // Only ./dist is published. The project root also holds the dev server,
+  // the README and the uncompressed originals, none of which belong on the
+  // public site.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  // custom_domain: true makes Cloudflare create and manage the DNS record
+  // for this hostname on the abdismart.com zone.
+  "routes": [
+    { "pattern": "portafolio.abdismart.com", "custom_domain": true }
+  ]
+}

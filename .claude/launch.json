@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portafolio",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/Users/geinerporras/Documents/Portafolio/serve.py", "4173"],
+      "port": 4173
+    }
+  ]
+}

@@ -1,0 +1,869 @@
+/* Geiner Porras Vargas — portfolio
+   Design tokens lifted from the Claude Design source (ink / acid lime),
+   extended with a light theme. Every surface, line and dim tone is a token
+   so the whole page inverts from one place.
+
+   The lime stays lime in both themes where it is a FILL (buttons, pills).
+   Where the accent is TEXT it uses --accent-text, which darkens to olive in
+   light mode so it keeps its contrast. */
+
+:root,
+:root[data-theme="dark"]{
+  color-scheme:dark;
+
+  --bg:#0B0D0C;
+  --surface:#0E100F;
+  --surface-hover:#111412;
+  --surface-hover-2:#121614;
+  --surface-soft:#101310;
+  --header-bg:rgba(11,13,12,.82);
+
+  --text:#EDEDE8;
+  --dim:rgba(237,237,232,.62);
+  --dim-strong:rgba(237,237,232,.74);
+  --dim-body:rgba(237,237,232,.7);
+  --dim-soft:rgba(237,237,232,.66);
+  --dim-label:rgba(237,237,232,.55);
+  --dim-faint:rgba(237,237,232,.38);
+  --dim-sep:rgba(237,237,232,.3);
+
+  --line:rgba(237,237,232,.12);
+  --line-2:rgba(237,237,232,.14);
+  --line-3:rgba(237,237,232,.2);
+  --line-4:rgba(237,237,232,.28);
+  --line-soft:rgba(237,237,232,.08);
+  --line-strong:rgba(237,237,232,.16);
+  --line-pill:rgba(237,237,232,.22);
+
+  --icon-bg:rgba(237,237,232,.07);
+  --shot-bg:rgba(237,237,232,.04);
+  --shadow:rgba(11,13,12,.35);
+
+  --accent:#E6FF55;
+  --accent-text:#E6FF55;
+  --on-accent:#0B0D0C;
+  --accent-ring:rgba(230,255,85,.16);
+  /* The timeline fill stays lime in BOTH themes, so this pair is declared
+     only here and deliberately not overridden in the light block. */
+  --rail-lime:#E6FF55;
+  --rail-lime-soft:rgba(230,255,85,.45);
+  --accent-edge:rgba(230,255,85,.5);
+  --accent-edge-2:rgba(230,255,85,.45);
+
+  --pill-dark-bg:#0B0D0C;
+  --pill-dark-text:#EDEDE8;
+
+  --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
+
+  --gut:clamp(20px,4vw,48px);
+  --sec-pad:clamp(56px,9vw,110px);
+}
+
+:root[data-theme="light"]{
+  color-scheme:light;
+
+  --bg:#F4F4EE;
+  --surface:#FFFFFF;
+  --surface-hover:#FBFBF6;
+  --surface-hover-2:#F8F8F2;
+  --surface-soft:#FAFAF4;
+  --header-bg:rgba(244,244,238,.85);
+
+  --text:#0B0D0C;
+  --dim:rgba(11,13,12,.62);
+  --dim-strong:rgba(11,13,12,.76);
+  --dim-body:rgba(11,13,12,.72);
+  --dim-soft:rgba(11,13,12,.68);
+  --dim-label:rgba(11,13,12,.58);
+  --dim-faint:rgba(11,13,12,.42);
+  --dim-sep:rgba(11,13,12,.3);
+
+  --line:rgba(11,13,12,.14);
+  --line-2:rgba(11,13,12,.16);
+  --line-3:rgba(11,13,12,.22);
+  --line-4:rgba(11,13,12,.3);
+  --line-soft:rgba(11,13,12,.1);
+  --line-strong:rgba(11,13,12,.18);
+  --line-pill:rgba(11,13,12,.24);
+
+  --icon-bg:rgba(11,13,12,.06);
+  --shot-bg:rgba(11,13,12,.05);
+  --shadow:rgba(11,13,12,.16);
+
+  --accent:#E6FF55;
+  --accent-text:#4F5D00;
+  --on-accent:#0B0D0C;
+  --accent-ring:rgba(79,93,0,.18);
+  --accent-edge:rgba(79,93,0,.45);
+  --accent-edge-2:rgba(79,93,0,.4);
+
+  --pill-dark-bg:#0B0D0C;
+  --pill-dark-text:#EDEDE8;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  text-wrap:pretty;
+  overflow-x:hidden;
+  transition:background-color .28s ease,color .28s ease;
+}
+
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--accent-text)}
+img{display:block;max-width:100%}
+::selection{background:var(--accent);color:var(--on-accent)}
+
+:focus-visible{outline:2px solid var(--accent-text);outline-offset:3px;border-radius:2px}
+
+.mono{font-family:var(--mono)}
+.muted{color:var(--dim)}
+.lime{color:var(--accent-text)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gut)}
+.section{padding-top:var(--sec-pad)}
+
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:100;
+  background:var(--accent);color:var(--on-accent);padding:10px 16px;font-family:var(--mono);font-size:12px;
+}
+.skip:focus{left:8px;top:8px}
+
+/* ---------- header ---------- */
+
+.site-header{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:var(--header-bg);
+  border-bottom:1px solid var(--line);
+  transition:background-color .28s ease,border-color .28s ease;
+}
+.header-inner{
+  padding-top:14px;padding-bottom:14px;
+  display:flex;gap:12px;align-items:center;justify-content:space-between;
+}
+.brand{
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  display:flex;align-items:center;gap:9px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent-text);display:inline-block;flex:none}
+.header-actions{
+  display:flex;align-items:center;gap:clamp(7px,1.2vw,12px);flex:none;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);
+}
+/* The name is the only thing allowed to shrink next to four fixed-width
+   controls. text-overflow does nothing on a flex container, so the ellipsis
+   belongs on the inner span. */
+.brand{min-width:0}
+.brand-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* The section links live twice: inline in the bar for desktop, and inside the
+   panel for the hamburger. Only ever one of the two is displayed. */
+.nav-inline{display:none}
+
+/* Desktop only. The width alone is not enough: a tablet in landscape is wider
+   than 1024px and should still get the hamburger, so this also asks for a fine
+   pointer, which a finger is not. If a browser does not report pointer at all
+   it falls through to the hamburger, which is the safe side. */
+@media (min-width:1024px) and (pointer:fine){
+  .nav-inline{
+    display:flex;align-items:center;flex:none;
+    gap:clamp(14px,1.8vw,26px);
+    margin-left:auto;
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--dim);
+  }
+  .nav-inline a:hover{color:var(--accent-text)}
+  /* Two classes on purpose: .icon-btn{display:grid} is declared further down
+     the file, and at equal specificity that later rule would win. */
+  .header-actions .menu-btn,
+  .site-header .menu-panel{display:none}
+}
+
+/* ---------- hamburger panel ---------- */
+
+.menu-btn .icon-bars,
+.menu-btn .icon-x{grid-area:1/1}
+.menu-btn .icon-x{opacity:0;transform:rotate(-70deg) scale(.4)}
+.site-header.is-open .menu-btn .icon-bars{opacity:0;transform:rotate(70deg) scale(.4)}
+.site-header.is-open .menu-btn .icon-x{opacity:1;transform:none}
+.site-header.is-open .menu-btn{border-color:var(--accent-text);color:var(--accent-text)}
+
+/* Collapsed with visibility:hidden, not display:none, so the links leave the
+   tab order while the height can still animate. */
+.menu-panel{
+  overflow:hidden;max-height:0;visibility:hidden;
+  border-top:1px solid transparent;
+  transition:max-height .34s cubic-bezier(.22,.61,.36,1),visibility .34s,border-color .34s;
+}
+.site-header.is-open .menu-panel{
+  max-height:70vh;visibility:visible;border-top-color:var(--line);
+}
+.menu-links{
+  display:flex;flex-direction:column;
+  padding-top:6px;padding-bottom:14px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+}
+.menu-links a{
+  padding:14px 2px;color:var(--dim);
+  border-bottom:1px solid var(--line-soft);
+  transition:color .18s,padding-left .18s;
+}
+.menu-links a:last-child{border-bottom:none}
+.menu-links a:hover{color:var(--accent-text);padding-left:8px}
+.lang-btn{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
+  background:transparent;border:1px solid var(--line-4);color:var(--text);
+  padding:6px 10px;border-radius:2px;cursor:pointer;
+  transition:border-color .18s,color .18s;
+}
+.lang-btn:hover{border-color:var(--accent-text);color:var(--accent-text)}
+
+/* ---------- theme toggle ---------- */
+
+.icon-btn{
+  position:relative;flex:none;
+  width:32px;height:30px;
+  display:grid;place-items:center;
+  background:transparent;border:1px solid var(--line-4);border-radius:2px;
+  color:var(--text);cursor:pointer;padding:0;
+  transition:border-color .18s,color .18s;
+}
+.icon-btn:hover{border-color:var(--accent-text);color:var(--accent-text)}
+
+.icon{
+  grid-area:1/1;
+  width:15px;height:15px;
+  fill:none;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:opacity .26s ease,transform .32s cubic-bezier(.34,1.3,.64,1);
+}
+.icon-moon{fill:currentColor;stroke:none}
+
+/* Dark theme: offer the sun (click to go light). Light theme: offer the moon. */
+:root[data-theme="dark"] .icon-moon,
+:root[data-theme="light"] .icon-sun{opacity:0;transform:rotate(-70deg) scale(.4)}
+:root[data-theme="dark"] .icon-sun,
+:root[data-theme="light"] .icon-moon{opacity:1;transform:none}
+
+.icon-btn:hover .sun-rays{transform-origin:12px 12px;animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.btn-lime{
+  background:var(--accent);color:var(--on-accent);padding:8px 14px;border-radius:2px;font-weight:500;
+  transition:background .18s,color .18s;
+}
+.btn-lime:hover{background:var(--text);color:var(--bg)}
+
+/* ---------- hero ---------- */
+
+.hero{padding-top:clamp(56px,10vw,132px);padding-bottom:clamp(40px,6vw,80px)}
+.eyebrow{
+  margin:0 0 clamp(24px,5vw,54px);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--dim-label);
+}
+/* The availability signal. With its label gone it is the only thing carrying
+   that meaning, so it breathes slowly to read as a live status rather than a
+   bullet. Its name lives in title/aria-label, which app.js keeps translated. */
+.pulse{
+  width:7px;height:7px;border-radius:50%;background:var(--accent-text);
+  display:inline-block;flex:none;
+  box-shadow:0 0 0 4px var(--accent-ring);
+  animation:breathe 2.6s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{box-shadow:0 0 0 3px var(--accent-ring)}
+  50%    {box-shadow:0 0 0 6px transparent}
+}
+
+.place{display:flex;align-items:center;gap:9px}
+
+/* Hairline via box-shadow so it sits outside the bands instead of eating
+   into the top and bottom stripes. */
+.flag{
+  width:21px;height:13px;flex:none;border-radius:2px;
+  box-shadow:0 0 0 1px var(--line-3);
+}
+.hero-title{
+  margin:0;font-size:clamp(44px,8.6vw,108px);line-height:.94;letter-spacing:-.035em;font-weight:500;
+}
+.hero-title em{font-style:italic;font-weight:400}
+.hero-foot{
+  margin-top:clamp(28px,5vw,56px);
+  display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,64px);align-items:flex-end;
+  border-top:1px solid var(--line);padding-top:26px;
+}
+.hero-sub{
+  flex:1 1 320px;min-width:260px;margin:0;max-width:52ch;
+  font-size:clamp(16px,1.5vw,19px);line-height:1.5;color:var(--dim-strong);
+}
+.hero-ctas{
+  display:flex;gap:12px;flex-wrap:wrap;
+  font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+}
+.hero-ctas .btn-lime{padding:13px 20px}
+.btn-ghost{
+  border:1px solid var(--line-4);padding:13px 20px;border-radius:2px;
+  transition:border-color .18s,color .18s;
+}
+.btn-ghost:hover{border-color:var(--accent-text)}
+
+/* Brand marks are solid shapes, unlike the stroked UI icons above. */
+.brand-icon{width:15px;height:15px;flex:none;fill:currentColor;stroke:none}
+
+/* Square siblings of the hero CTAs. align-self:stretch matches the buttons'
+   height exactly while they share a flex line; min-height keeps them the same
+   size once the row wraps and they are alone on their own line. */
+.btn-icon{
+  display:grid;place-items:center;align-self:stretch;
+  width:44px;min-height:44px;
+  border:1px solid var(--line-4);border-radius:2px;color:var(--dim);
+  transition:border-color .18s,color .18s;
+}
+.btn-icon:hover{border-color:var(--accent-text);color:var(--accent-text)}
+.btn-icon .brand-icon{width:17px;height:17px}
+
+/* CV: one label, one button per language. The button text stays in its own
+   language (Español / English) so it reads the same whatever the site is on. */
+.hero-cv{
+  margin-top:clamp(24px,4vw,40px);
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;
+}
+.hero-cv-label{
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim-label);
+}
+.hero-cv-links{display:flex;flex-wrap:wrap;gap:12px}
+.btn-cv{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1px solid var(--line-4);padding:11px 18px;border-radius:2px;
+  font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+  transition:border-color .18s,color .18s,background .18s;
+}
+.btn-cv:hover{border-color:var(--accent-edge);color:var(--accent-text);background:var(--icon-bg)}
+.cv-icon{
+  width:15px;height:15px;flex:none;
+  fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .26s cubic-bezier(.34,1.3,.64,1);
+}
+.btn-cv:hover .cv-icon{transform:translateY(2px)}
+
+/* ---------- certifications ---------- */
+
+.cert-filters{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:clamp(18px,2.5vw,26px);
+}
+.cert-filter{
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--line-3);color:var(--dim);
+  padding:9px 15px;border-radius:999px;cursor:pointer;
+  transition:border-color .18s,color .18s,background .18s;
+}
+.cert-filter:hover{border-color:var(--accent-edge);color:var(--accent-text)}
+.cert-filter.is-on{
+  background:var(--accent);border-color:var(--accent);color:var(--on-accent);
+}
+
+.certs{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr));
+  gap:clamp(12px,1.6vw,18px);
+}
+.cert{
+  display:flex;flex-direction:column;gap:16px;
+  background:var(--surface);border:1px solid var(--line-2);border-radius:14px;
+  padding:clamp(18px,2vw,22px);
+  transition:border-color .18s,background .18s;
+}
+.cert:hover{border-color:var(--accent-edge-2);background:var(--surface-hover)}
+.cert[hidden]{display:none}
+
+.cert-top{display:flex;align-items:flex-start;gap:14px}
+.cert-icon{
+  width:42px;height:42px;flex:none;border-radius:11px;
+  background:var(--icon-bg);display:flex;align-items:center;justify-content:center;
+  color:var(--accent-text);
+}
+.cert-icon svg{
+  width:21px;height:21px;
+  fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+}
+.cert-id{min-width:0}
+.cert-id h3{
+  margin:0;font-size:16.5px;line-height:1.3;letter-spacing:-.01em;font-weight:500;
+  text-wrap:balance;
+}
+.cert-issuer{margin:5px 0 0;font-size:13.5px;color:var(--dim)}
+
+.cert-foot{
+  margin-top:auto;
+  display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;justify-content:space-between;
+}
+.cert-date{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;color:var(--dim-label);
+}
+.cert-tag{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+  border:1px solid var(--line-3);border-radius:999px;padding:6px 12px;color:var(--dim-body);
+}
+.cert .tags{margin-top:-4px}
+
+/* ---------- career timeline ---------- */
+
+/* The rail is one gradient line on the list; each role hangs a dot on it.
+   --rail is the gutter the cards are pushed right by, so the dot can be
+   placed from the card's own edge without magic numbers. */
+.timeline{
+  --rail:clamp(26px,4vw,46px);
+  list-style:none;margin:0;padding:0 0 0 var(--rail);
+  position:relative;
+}
+/* The rail is two stacked lines on the same 1px track: a dim one that shows
+   the whole road, and a lime one whose height app.js drives from the scroll
+   position. Its gradient is stretched by the element box, so the leading tip
+   is always the brightest part -- it reads as the line being charged.
+   --fill is 0..1; app.js pins it at 1 when it will not animate. */
+.timeline::before,
+.timeline::after{
+  content:"";position:absolute;left:5px;width:1px;top:14px;
+}
+.timeline::before{
+  bottom:14px;
+  background:linear-gradient(to bottom,var(--line-3),var(--line-3) 72%,transparent);
+}
+.timeline::after{
+  height:calc(var(--fill,0) * (100% - 28px));
+  background:linear-gradient(to bottom,var(--rail-lime-soft),var(--rail-lime));
+  /* In light mode --accent-ring is olive, which gives the thin lime line the
+     bit of definition it needs against the cream background. */
+  box-shadow:0 0 8px var(--accent-ring);
+}
+.job{position:relative}
+.job + .job{margin-top:clamp(14px,2vw,20px)}
+
+.job-dot{
+  position:absolute;left:calc(var(--rail) * -1);top:clamp(26px,3vw,32px);
+  width:11px;height:11px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--bg);
+  box-shadow:0 0 0 3px var(--accent-ring);
+}
+/* The role held today gets the same halo as the hero's availability dot. */
+.job--current .job-dot{box-shadow:0 0 0 5px var(--accent-ring)}
+
+.job-card{
+  border:1px solid var(--line);border-radius:2px;background:var(--surface);
+  transition:border-color .18s,background .18s;
+}
+.job-card:hover{border-color:var(--line-3)}
+.job-card[open]{background:var(--surface-hover)}
+
+.job-head{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:clamp(20px,2.4vw,28px) clamp(18px,2.2vw,28px);
+  cursor:pointer;list-style:none;
+}
+.job-head::-webkit-details-marker{display:none}
+.job-head:focus-visible{outline:2px solid var(--accent-text);outline-offset:-3px}
+.job-intro{flex:1 1 auto;display:flex;flex-direction:column;gap:9px;min-width:0}
+
+.job-role{
+  margin:0;font-size:clamp(18px,2vw,22px);letter-spacing:-.01em;font-weight:500;line-height:1.2;
+}
+.job-company{
+  display:flex;align-items:center;gap:8px;
+  font-size:14.5px;font-weight:500;color:var(--text);
+}
+.job-metas{display:flex;flex-wrap:wrap;gap:6px 18px}
+.job-meta{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;color:var(--dim-label);
+}
+.job-icon{
+  width:15px;height:15px;flex:none;color:var(--accent-text);
+  fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
+}
+.job-lead{margin:4px 0 0;font-size:14.5px;line-height:1.6;color:var(--dim-soft);max-width:66ch}
+
+.job-chev{
+  width:19px;height:19px;flex:none;margin-top:4px;color:var(--dim-faint);
+  fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .26s cubic-bezier(.34,1.3,.64,1),color .18s;
+}
+.job-head:hover .job-chev{color:var(--accent-text)}
+.job-card[open] .job-chev{transform:rotate(180deg)}
+
+.job-body{
+  padding:0 clamp(18px,2.2vw,28px) clamp(20px,2.4vw,28px);
+  display:flex;flex-direction:column;gap:18px;
+}
+.job-points{
+  margin:0;padding:0;list-style:none;
+  display:flex;flex-direction:column;gap:10px;
+  border-top:1px solid var(--line-soft);padding-top:18px;
+}
+.job-points li{
+  position:relative;padding-left:18px;
+  font-size:14.5px;line-height:1.65;color:var(--dim-body);max-width:72ch;
+}
+.job-points li::before{
+  content:"";position:absolute;left:0;top:.62em;
+  width:6px;height:1px;background:var(--accent-text);
+}
+.job-stack{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px}
+.job-stack-label{
+  font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim-faint);
+}
+
+/* Scroll reveal, per role: each card comes in small and grey, then grows to
+   size and lets its lime come back. The initial state lives behind
+   .timeline--anim, which app.js only adds when it will actually animate, so
+   with JS off or reduced motion the cards just render finished.
+   The transition is declared on .is-in, not on the resting state, so the
+   staggered --d delay can never leak into the card's hover transition. */
+.timeline--anim .job-card{
+  opacity:0;
+  transform:scale(.92);
+  transform-origin:left center;
+  filter:grayscale(1);
+}
+.timeline--anim .job.is-in .job-card{
+  opacity:1;
+  transform:none;
+  filter:none;
+  transition:
+    opacity .55s ease var(--d,0ms),
+    transform .6s cubic-bezier(.22,.61,.36,1) var(--d,0ms),
+    filter .85s ease var(--d,0ms),
+    /* Restated from .job-card: this shorthand replaces that one, and without
+       these two the hover would snap once a card has revealed. */
+    border-color .18s,
+    background .18s;
+}
+/* The dot pops onto the rail with the card it belongs to. */
+.timeline--anim .job-dot{opacity:0;transform:scale(.2)}
+.timeline--anim .job.is-in .job-dot{
+  opacity:1;
+  transform:none;
+  transition:
+    opacity .3s ease var(--d,0ms),
+    transform .5s cubic-bezier(.34,1.45,.64,1) calc(var(--d,0ms) + 90ms);
+}
+
+
+/* ---------- metrics ---------- */
+
+/* Four metrics, explicit columns: the dividers are per-cell borders, so
+   auto-fit could leave a divider hanging in a half-empty row. */
+.metrics{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.metric{padding:26px 22px 26px 0;border-right:1px solid var(--line-soft)}
+.metric:last-child{border-right:0}
+
+@media (max-width:900px){
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .metric:nth-child(2n){border-right:0}
+  .metric:nth-child(-n+2){padding-top:22px}
+  .metric:nth-child(n+3){border-top:1px solid var(--line-soft);padding-top:22px}
+}
+@media (max-width:480px){
+  .metrics{grid-template-columns:1fr}
+  .metric{border-right:0;border-top:1px solid var(--line-soft);padding:20px 0}
+  .metric:first-child{border-top:0}
+}
+.metric-val{
+  font-size:clamp(34px,4vw,50px);line-height:1;letter-spacing:-.03em;color:var(--accent-text);font-weight:500;
+}
+.metric-label{
+  margin-top:9px;font-family:var(--mono);font-size:11.5px;line-height:1.45;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--dim-label);
+}
+
+/* ---------- section headings ---------- */
+
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:clamp(24px,4vw,44px)}
+.sec-head h2{margin:0;font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;font-weight:500}
+.num{font-size:12px;color:var(--accent-text);flex:none}
+
+/* ---------- services ---------- */
+
+/* Explicit columns rather than auto-fit: the hairlines come from the
+   container background showing through a 1px gap, so a half-empty last row
+   would show as a grey block. Three services, three deliberate states. */
+.services{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line);
+}
+@media (max-width:900px){
+  .services{grid-template-columns:repeat(2,1fr)}
+  .service:nth-child(3){grid-column:1 / -1}
+}
+@media (max-width:560px){
+  .services{grid-template-columns:1fr}
+  .service:nth-child(3){grid-column:auto}
+}
+.service{
+  background:var(--bg);padding:clamp(24px,3vw,36px) clamp(20px,2.4vw,30px);
+  display:flex;flex-direction:column;gap:14px;min-height:230px;
+  transition:background .18s;
+}
+.service:hover{background:var(--surface-soft)}
+.service-num{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.service h3{margin:0;font-size:clamp(19px,2vw,23px);letter-spacing:-.01em;font-weight:500;line-height:1.2}
+.service p{margin:0;font-size:14.5px;line-height:1.6;color:var(--dim-soft)}
+.service-meta{margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--accent-text)}
+
+/* ---------- projects ---------- */
+
+/* Wry lead-in above the grid, set like a code comment so the joke stays
+   in the page's technical register instead of breaking it. */
+.quip{
+  margin:0 0 clamp(20px,3vw,32px);
+  max-width:62ch;
+  font-size:clamp(14px,1.3vw,15.5px);
+  line-height:1.6;
+  color:var(--dim);
+}
+.quip::before{
+  content:"//";
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--accent-text);
+  margin-right:10px;
+}
+.quip b{
+  font-weight:500;
+  color:var(--text);
+  border-bottom:1px solid var(--accent-edge);
+  padding-bottom:1px;
+}
+
+/* The cards stack: each one pins under the header and the next slides up
+   over it, so they pile into a deck. Each card pins --step lower than the one
+   before (--i comes from the render), leaving a sliver of every card below
+   showing so the pile reads as a pile. When .projects runs out the whole deck
+   unpins together and the page carries on.
+   --header-h is measured by app.js; the fallback keeps the pin clear of the
+   header even if that never runs. */
+.projects{
+  display:block;
+  --step:10px;
+  --stack-top:calc(var(--header-h,64px) + 14px);
+}
+.project{
+  position:sticky;
+  top:calc(var(--stack-top) + var(--i,0) * var(--step));
+  display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--line-2);border-radius:6px;overflow:hidden;
+  transition:border-color .18s,background .18s;
+  /* Cast upward: the card that just slid into place shades the one it covers. */
+  box-shadow:0 -14px 34px -16px var(--shadow);
+}
+/* Later cards paint over earlier ones by document order, which is exactly the
+   deck order, so no z-index ladder is needed. */
+
+/* Full-bleed 16/10 art would make each card taller than the viewport once the
+   grid is gone, so from here the card turns on its side instead. */
+@media (min-width:860px){
+  .project{flex-direction:row;align-items:stretch;min-height:310px}
+  .project .shot{flex:0 0 44%;border-bottom:none;border-right:1px solid var(--line)}
+  .project .shot img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
+  .project .shot-empty{position:absolute;inset:0;aspect-ratio:auto;height:100%}
+}
+.project:hover{border-color:var(--accent-edge);background:var(--surface-hover)}
+.shot{position:relative;border-bottom:1px solid var(--line)}
+.shot img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.shot-empty{
+  width:100%;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;
+  background:var(--shot-bg);
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--dim-faint);text-align:center;padding:16px;
+}
+.shot-num{
+  position:absolute;top:12px;left:12px;pointer-events:none;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+  background:rgba(11,13,12,.82);color:#E6FF55;padding:5px 8px;border-radius:2px;
+}
+.project-body{flex:1;padding:clamp(18px,2vw,24px);display:flex;flex-direction:column;gap:12px}
+.project-top{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between}
+.project-top h3{margin:0;font-size:clamp(19px,2vw,24px);letter-spacing:-.02em;font-weight:500}
+.project-host{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--dim)}
+.project-desc{margin:0;font-size:14.5px;line-height:1.6;color:var(--dim-body)}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.tag{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;
+  border:1px solid var(--line-3);padding:5px 8px;border-radius:2px;color:var(--dim-body);
+}
+.project-link{
+  margin-top:auto;padding-top:14px;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--accent-text);
+  display:flex;align-items:center;gap:7px;
+}
+.project-link span{transition:transform .18s}
+.project-link:hover span{transform:translateX(3px)}
+
+/* ---------- about ---------- */
+
+.about{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,72px);align-items:center}
+.portrait-col{flex:1 1 320px;min-width:270px;max-width:440px;position:relative}
+.portrait-ring{
+  position:relative;width:100%;aspect-ratio:1/1;border-radius:50%;
+  background:var(--surface);border:13px solid var(--accent);overflow:hidden;
+}
+.portrait{width:100%;height:100%;object-fit:cover}
+.portrait-hint{
+  display:none;position:absolute;inset:0;align-items:center;justify-content:center;
+  font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--dim-faint);text-align:center;padding:24px;
+}
+.portrait-ring.is-empty .portrait-hint{display:flex}
+.pills{
+  position:absolute;left:-5%;right:-5%;bottom:2%;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:7px;pointer-events:none;
+}
+.pill{
+  font-size:12.5px;font-weight:500;letter-spacing:-.01em;padding:7px 13px;border-radius:999px;
+  white-space:nowrap;box-shadow:0 2px 10px var(--shadow);
+}
+.pill--lime{background:var(--accent);color:var(--on-accent)}
+.pill--dark{background:var(--pill-dark-bg);color:var(--pill-dark-text);border:1px solid var(--line-pill)}
+
+.about-col{flex:1 1 380px;min-width:280px;display:flex;flex-direction:column;gap:18px}
+.kicker{
+  margin:0;display:flex;align-items:center;gap:10px;
+  font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-text);
+}
+.rule{width:14px;height:2px;background:var(--accent-text);display:inline-block}
+.about-q{margin:0;font-size:clamp(28px,4vw,46px);line-height:1.08;letter-spacing:-.03em;font-weight:500}
+.about-q em{color:var(--accent-text);font-style:italic;font-weight:400}
+.about-1{margin:0;font-size:clamp(16px,1.6vw,19px);line-height:1.5;letter-spacing:-.01em;max-width:46ch}
+.about-2{margin:0;font-size:15.5px;line-height:1.7;color:var(--dim-body);max-width:56ch}
+.pill-cta{
+  align-self:flex-start;margin-top:6px;display:flex;align-items:center;gap:12px;
+  background:var(--accent);color:var(--on-accent);padding:8px 8px 8px 22px;border-radius:999px;
+  font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+  transition:background .18s;
+}
+.pill-cta:hover{background:var(--text);color:var(--bg)}
+.pill-cta:hover .pill-arrow{background:var(--bg);color:var(--text)}
+.pill-arrow{
+  width:34px;height:34px;border-radius:50%;background:var(--pill-dark-bg);color:#E6FF55;
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex:none;
+  transition:background .18s,color .18s;
+}
+
+/* ---------- stack ---------- */
+
+.stack{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(132px,100%),1fr));gap:clamp(8px,1.2vw,14px)}
+.tool{
+  display:flex;flex-direction:column;align-items:center;gap:11px;padding:22px 14px;
+  background:var(--surface);border:1px solid var(--line-2);border-radius:26px;
+  transition:background .18s,border-color .18s;
+}
+.tool:hover{background:var(--surface-hover-2);border-color:var(--accent-edge-2)}
+.tool-icon{
+  width:48px;height:48px;border-radius:50%;background:var(--icon-bg);
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.tool-icon img{width:25px;height:25px;object-fit:contain}
+.tool-icon .mono{font-size:14px;color:var(--accent-text)}
+.tool-name{font-size:14px;font-weight:500;letter-spacing:-.01em;text-align:center}
+.tool-role{
+  font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--dim);text-align:center;line-height:1.35;
+}
+
+/* Simple-icons ships one flat colour per request; invert it for light mode. */
+:root[data-theme="light"] .tool-icon img{filter:invert(1) brightness(.22)}
+
+/* ---------- contact ---------- */
+
+.section--contact{padding-top:clamp(64px,10vw,130px);padding-bottom:clamp(48px,6vw,80px)}
+.contact{
+  border-top:1px solid var(--line-strong);padding-top:clamp(32px,5vw,56px);
+  display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,72px);align-items:flex-end;
+}
+.contact-main{flex:1 1 380px;min-width:280px}
+.contact-main>.mono{font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.cta-head{
+  margin:16px 0 0;font-size:clamp(28px,4.4vw,56px);line-height:1.05;
+  letter-spacing:-.03em;font-weight:500;max-width:22ch;
+}
+.mail{
+  display:inline-block;margin-top:24px;font-size:clamp(17px,2vw,22px);letter-spacing:-.01em;
+  border-bottom:1px solid var(--accent-text);padding-bottom:4px;
+}
+.contact-links{
+  flex:0 1 240px;min-width:200px;display:flex;flex-direction:column;gap:1px;background:var(--line);
+}
+.contact-links>*{
+  background:var(--bg);padding:15px 0;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;
+  display:flex;justify-content:space-between;gap:12px;
+}
+.link-label{display:flex;align-items:center;gap:10px}
+.contact-links a:hover .brand-icon{color:var(--accent-text)}
+.footer{
+  margin-top:clamp(40px,6vw,80px);border-top:1px solid var(--line);padding-top:18px;
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);
+}
+
+/* ---------- motion ---------- */
+
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rise{animation:rise .5s cubic-bezier(.22,.61,.36,1) both}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
+
+/* Under this the name and the four controls cannot share a row without the
+   name being chopped, so the name gets the top row to itself and the controls
+   spread along the bar beneath it. */
+@media (max-width:560px){
+  .header-inner{flex-wrap:wrap;gap:10px;justify-content:flex-start}
+  .brand{flex:1 0 100%}
+  .header-actions{width:100%;justify-content:space-between;gap:8px}
+}
+
+@media (max-width:640px){
+  .projects{--step:6px}
+  .metric{padding-right:16px}
+  .pills{position:static;margin-top:16px;left:auto;right:auto}
+}
+
+/* Touch devices: grow the tap targets to ~44px without changing how the
+   header looks on a mouse-driven screen. */
+@media (pointer:coarse){
+  .header-actions{gap:clamp(8px,1.4vw,14px)}
+  .menu-links a{padding-block:16px}
+  .cert-filter{padding:12px 17px}
+  .lang-btn{padding:11px 13px}
+  .icon-btn{width:42px;height:42px}
+  .icon{width:17px;height:17px}
+  .contact-links>*{padding:19px 0}
+  .project-link{padding-top:18px;padding-bottom:4px}
+  .btn-cv{padding:13px 18px}
+}
+
+@media print{
+  .site-header,.hero-ctas,.hero-cv,.skip{display:none}
+  body{background:#fff;color:#000}
+  /* A printed CV should not hide half the history behind a closed disclosure. */
+  .job-card > .job-body{display:block}
+  .job-chev{display:none}
+  /* Sticky cards would print stacked on one page; let them flow. */
+  .project{position:static;box-shadow:none}
+}

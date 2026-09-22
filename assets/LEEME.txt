@@ -1,0 +1,34 @@
+Estado de las imágenes
+======================
+
+YA ESTÁN (las 8 tarjetas tienen captura):
+  shot-abdi-ia.webp          01  Abdi IA
+  shot-abdi-ia-crm.webp      02  Abdi IA CRM
+  shot-abdismart.webp        03  Abdismart
+  shot-abdismart-crm.webp    04  Abdismart CRM
+  shot-badboysgym.webp       05  Badboysgym
+  shot-badboysgym-crm.webp   06  Badboysgym CRM
+  shot-elticofx.webp         07  ElticoFX
+  shot-comunidad-ia.webp     08  Comunidad de IA
+  about-portrait.webp            Retrato (círculo de "Sobre mí")
+
+DATOS TAPADOS
+  Las capturas 04 y 06 salen de paneles con datos reales, así que llevan
+  pixelado:
+    04  nombres de leads (Solicitudes recientes y Prioridades) y el
+        usuario con sesión abierta, abajo en la barra lateral.
+    06  nombre y WhatsApp del miembro en "Últimos registros".
+  El pixelado es destructivo, no se revierte desde el .webp publicado.
+  Si algún día regeneras esas capturas, usa datos de prueba o volvé a tapar
+  esas zonas antes de reemplazar el .webp.
+
+--------------------------------------------------------------------
+Para reemplazar una: dejá el archivo acá con ese nombre exacto.
+La extensión puede ser .webp, .png o .jpg — la página prueba las tres.
+Ojo: build.sh solo copia assets/*.webp a dist/, así que un .png o .jpg
+no llega al sitio publicado. Convertilo a .webp.
+Las capturas se recortan a 16:10 (el retrato a círculo), ~1200px de ancho.
+
+_originales/  guarda los PNG sin comprimir que subiste. No los usa el
+              sitio ni el build. Podés borrar esa carpeta para ahorrar
+              espacio; solo perderías la fuente sin comprimir.
