@@ -206,18 +206,53 @@ img{display:block;max-width:100%}
 .site-header.is-open .menu-panel{
   max-height:70vh;visibility:visible;border-top-color:var(--line);
 }
+/* El menú móvil se lee como un árbol de archivos. Los conectores se dibujan
+   con bordes, no con los caracteres ├ └: así no entran al árbol de
+   accesibilidad —un lector de pantalla los leería como ruido— y además
+   escalan con el tamaño de fuente sin desalinearse. */
+.menu-tree{
+  padding-top:10px;padding-bottom:16px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;
+}
+.menu-root{
+  display:flex;align-items:center;gap:8px;
+  margin:0 0 2px;padding:4px 2px;
+  color:var(--text);text-transform:lowercase;
+}
+.menu-root::before{
+  content:"▾";font-size:11px;line-height:1;color:var(--accent-text);
+}
 .menu-links{
-  display:flex;flex-direction:column;
-  padding-top:6px;padding-bottom:14px;
-  font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+  list-style:none;margin:0;padding:0;
+}
+/* La vertical es el borde izquierdo del propio <li>, no un segmento aparte:
+   los bordes de elementos contiguos se tocan sin huecos, mientras que dos
+   pseudo-elementos que se encuentran a media altura dejaban micro-cortes
+   visibles según el redondeo de píxeles. */
+.menu-links li{
+  position:relative;
+  margin-left:5px;padding-left:20px;
+  border-left:1px solid var(--line-4);
+}
+/* El tick horizontal sale a media fila. */
+.menu-links li::before{
+  content:"";position:absolute;left:0;top:50%;width:12px;
+  border-top:1px solid var(--line-4);
+}
+/* El último cierra en └: se le quita la vertical completa y se le dibuja
+   solo la mitad de arriba. */
+.menu-links li:last-child{border-left-color:transparent}
+.menu-links li:last-child::after{
+  content:"";position:absolute;left:-1px;top:0;height:50%;
+  border-left:1px solid var(--line-4);
 }
 .menu-links a{
-  padding:14px 2px;color:var(--dim);
-  border-bottom:1px solid var(--line-soft);
-  transition:color .18s,padding-left .18s;
+  display:block;padding:11px 2px;color:var(--dim);
+  text-transform:lowercase;
+  transition:color .18s,transform .18s;
 }
-.menu-links a:last-child{border-bottom:none}
-.menu-links a:hover{color:var(--accent-text);padding-left:8px}
+.menu-links a:hover,
+.menu-links a:focus-visible{color:var(--accent-text);transform:translateX(3px)}
 .lang-btn{
   font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   background:transparent;border:1px solid var(--line-4);color:var(--text);
@@ -848,7 +883,7 @@ img{display:block;max-width:100%}
    header looks on a mouse-driven screen. */
 @media (pointer:coarse){
   .header-actions{gap:clamp(8px,1.4vw,14px)}
-  .menu-links a{padding-block:16px}
+  .menu-links a{padding-block:13px}
   .cert-filter{padding:12px 17px}
   .lang-btn{padding:11px 13px}
   .icon-btn{width:42px;height:42px}

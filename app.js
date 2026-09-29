@@ -209,7 +209,8 @@
       footerNote: "Disponible para proyectos y colaboraciones",
       themeToLight: "Cambiar a tema claro",
       themeToDark: "Cambiar a tema oscuro",
-      menuOpen: "Abrir menú", menuClose: "Cerrar menú", menuNav: "Secciones"
+      menuOpen: "Abrir menú", menuClose: "Cerrar menú", menuNav: "Secciones",
+      menuRoot: "proyecto/"
     },
     en: {
       skip: "Skip to content",
@@ -266,7 +267,8 @@
       footerNote: "Available for projects and collaborations",
       themeToLight: "Switch to light theme",
       themeToDark: "Switch to dark theme",
-      menuOpen: "Open menu", menuClose: "Close menu", menuNav: "Sections"
+      menuOpen: "Open menu", menuClose: "Close menu", menuNav: "Sections",
+      menuRoot: "project/"
     }
   };
 
