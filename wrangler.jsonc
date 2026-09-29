@@ -2,16 +2,31 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "portafolio",
   "compatibility_date": "2026-09-01",
+
+  // El Worker solo decide el hostname: sirve el sitio en geinerporras.com y
+  // manda un 301 desde cualquier otro. Ver src/index.js.
+  "main": "src/index.js",
+
   // Only ./dist is published. The project root also holds the dev server,
   // the README and the uncompressed originals, none of which belong on the
   // public site.
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Sin esto los estáticos se sirven antes que el Worker y "/" en www o en
+    // el dominio viejo devolvería el sitio en vez de redirigir.
+    "run_worker_first": true
   },
+
   // custom_domain: true makes Cloudflare create and manage the DNS record
-  // for this hostname on the abdismart.com zone.
+  // for this hostname. geinerporras.com sirve el sitio; los otros dos existen
+  // solo para que el Worker los pueda redirigir.
   "routes": [
+    { "pattern": "geinerporras.com", "custom_domain": true },
+    { "pattern": "www.geinerporras.com", "custom_domain": true },
     { "pattern": "portafolio.abdismart.com", "custom_domain": true }
-  ]
+  ],
+
+  "observability": { "enabled": true }
 }

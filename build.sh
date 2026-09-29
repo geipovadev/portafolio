@@ -22,6 +22,25 @@ cat > dist/_headers <<'HEOF'
   Cache-Control: public, max-age=0, must-revalidate
 HEOF
 
+# robots.txt y sitemap.xml: una sola página, pero le dan a los buscadores el
+# dominio canónico explícito.
+cat > dist/robots.txt <<'REOF'
+User-agent: *
+Allow: /
+
+Sitemap: https://geinerporras.com/sitemap.xml
+REOF
+
+cat > dist/sitemap.xml <<SEOF
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://geinerporras.com/</loc>
+    <lastmod>$(date -u +%Y-%m-%d)</lastmod>
+  </url>
+</urlset>
+SEOF
+
 # Renombra cada imagen a  nombre.<hash>.webp  y reescribe las referencias.
 # El hash es del contenido: si la imagen no cambia, el nombre tampoco, así que
 # la caché de un año de /assets/* se mantiene. Si cambia, el nombre cambia y el

@@ -4,7 +4,10 @@ One-pager bilingüe (ES/EN) con tema claro/oscuro. HTML, CSS y JS a mano, sin
 frameworks ni dependencias en tiempo de ejecución. Sí hay un paso de build:
 `build.sh` arma `dist/` y le pone hash de contenido a las imágenes.
 
-En producción: **https://portafolio.abdismart.com**
+En producción: **https://geinerporras.com**
+
+`www.geinerporras.com` y el dominio anterior `portafolio.abdismart.com` responden
+con un 301 al dominio canónico.
 
 ## Estructura
 
@@ -12,7 +15,8 @@ En producción: **https://portafolio.abdismart.com**
 index.html    Estructura y textos estáticos (data-i18n)
 styles.css    Tokens de diseño + layout (ink / acid lime)
 app.js        Datos + render + idioma + tema + interacciones
-build.sh      Arma dist/ y renombra las imágenes con hash
+src/index.js  Worker: redirige los alias al dominio canónico y sirve dist/
+build.sh      Arma dist/, renombra las imágenes con hash, genera robots+sitemap
 serve.py      Servidor de desarrollo (opcional)
 assets/       Imágenes .webp que sí se publican
   _originales/  PNG sin comprimir. Ignorados por git y por el build.
@@ -41,11 +45,43 @@ todo funciona igual (ver «Hashing de imágenes»).
 Cloudflare Workers con assets estáticos, cuenta geiner.porras.mb@gmail.com.
 
 `build.sh` arma `dist/` con lo único que debe ser público: `index.html`,
-`styles.css`, `app.js`, `assets/*.webp` y `_headers`. El resto del repo
-—`serve.py`, este README, `assets/_originales/`— se queda fuera.
+`styles.css`, `app.js`, `assets/*.webp`, `_headers`, `robots.txt` y
+`sitemap.xml`. El resto del repo —`serve.py`, este README,
+`assets/_originales/`— se queda fuera.
 
-`wrangler.jsonc` fija `assets.directory` a `./dist` y declara el dominio con
-`custom_domain: true`, así que Cloudflare mantiene el registro DNS.
+`wrangler.jsonc` fija `assets.directory` a `./dist` y declara los tres
+hostnames con `custom_domain: true`, así que Cloudflare mantiene los registros
+DNS de todos.
+
+## Dominios y redirecciones
+
+El sitio se sirve solo en `geinerporras.com`. Los otros dos hostnames existen
+para redirigir:
+
+| Hostname                   | Qué hace                      |
+| -------------------------- | ----------------------------- |
+| `geinerporras.com`         | sirve el sitio                |
+| `www.geinerporras.com`     | 301 al canónico               |
+| `portafolio.abdismart.com` | 301 al canónico (dominio viejo) |
+
+La decisión está en `src/index.js`, no en reglas del panel de Cloudflare, así
+que vive en el repo y se despliega con el resto. Requiere
+`assets.run_worker_first: true`: sin eso Cloudflare serviría los estáticos
+antes de ejecutar el Worker y `/` en los alias devolvería el sitio en lugar de
+redirigir.
+
+La lista de alias es explícita a propósito. Con un «todo lo que no sea el
+canónico redirige» se romperían `wrangler dev` en localhost y los previews de
+`workers.dev`.
+
+Para probar las redirecciones en local hace falta `--host`, porque
+`wrangler dev` por defecto le pone a la petición el hostname de la primera
+entrada de `routes`:
+
+```bash
+npx wrangler dev --host www.geinerporras.com
+curl -sI 'http://127.0.0.1:8787/algo?a=1'   # 301 → https://geinerporras.com/algo?a=1
+```
 
 Ojo: si corrés `wrangler deploy` sin `build.sh` antes, se publica el `dist/`
 anterior. El contenido nuevo no sale hasta reconstruirlo.
