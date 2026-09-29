@@ -8,43 +8,43 @@
 
   const PROJECTS = [
     { name: "Abdi IA", slug: "abdi-ia", url: "https://app.abdismart.com/", shot: true,
-      descEs: "Página de producto del CRM Abdi IA: explica cómo los agentes de IA administran las agendas de citas de especialistas de la salud y convierte la visita en registro.",
-      descEn: "Product page for the Abdi IA CRM: explains how AI agents run appointment schedules for healthcare specialists and turns the visit into a signup.",
+      descEs: "Sitio de producto del CRM. Next.js 16 con React 19 y Tailwind v4, renderizado estático y despliegue continuo en Vercel.",
+      descEn: "Product site for the CRM. Next.js 16 with React 19 and Tailwind v4, statically rendered with continuous deployment on Vercel.",
       tags: ["Next.js 16", "React 19", "Tailwind v4", "Vercel"] },
 
     { name: "Abdi IA CRM", slug: "abdi-ia-crm", url: "", shot: true,
-      descEs: "CRM que administra las agendas de citas por medio de agentes de IA: confirmaciones, recordatorios y reprogramaciones por WhatsApp, con el historial del paciente en un solo lugar.",
-      descEn: "CRM that manages appointment schedules through AI agents: confirmations, reminders and rescheduling over WhatsApp, with patient history in one place.",
+      descEs: "El producto principal: agente con function calling y 9 herramientas que agenda, reprograma, cancela y escala a humano por WhatsApp, Messenger e Instagram. Arquitectura multi-cliente con datos aislados por clínica y guardrails contra bucles agénticos.",
+      descEn: "The core product: an agent with function calling and 9 tools that books, reschedules, cancels and hands off to a human over WhatsApp, Messenger and Instagram. Multi-tenant, with per-clinic data isolation and guardrails against agentic loops.",
       tags: ["Agentes IA", "WhatsApp API", "Supabase", "Prisma", "Cloudflare"] },
 
     { name: "Abdismart", slug: "abdismart", url: "https://abdismart.com/", shot: true,
-      descEs: "Ayudamos a especialistas de la salud a mejorar la identidad visual digital por medio de automatizaciones y agentes de IA.",
-      descEn: "We help healthcare specialists improve their digital visual identity through automation and AI agents.",
+      descEs: "Landing de la empresa. Next.js sobre Vercel, con la estructura de contenido y el SEO técnico resueltos a mano.",
+      descEn: "Company landing page. Next.js on Vercel, with content structure and technical SEO handled by hand.",
       tags: ["Landing page", "Next.js", "Vercel"] },
 
     { name: "Abdismart CRM", slug: "abdismart-crm", url: "", shot: true,
-      descEs: "Administra los clientes y toda la operación de Abdismart: pipeline comercial, entregables por cliente y seguimiento del servicio en un panel interno.",
-      descEn: "Manages clients and the whole Abdismart operation: sales pipeline, per-client deliverables and service tracking in one internal panel.",
+      descEs: "Panel interno de operación: pipeline comercial, entregables por cliente y seguimiento del servicio, sobre Postgres con autenticación y políticas de acceso en Supabase.",
+      descEn: "Internal operations panel: sales pipeline, per-client deliverables and service tracking, on Postgres with Supabase auth and access policies.",
       tags: ["CRM", "Supabase", "Postgres", "Auth"] },
 
     { name: "Badboysgym", slug: "badboysgym", url: "https://badboysgym.com/", shot: true,
-      descEs: "Landing page para un gimnasio donde brinda toda la información y planes para los clientes del gimnasio.",
-      descEn: "Landing page for a gym that presents all the information and membership plans for its clients.",
+      descEs: "Landing de un gimnasio: planes, horarios e información de contacto. Estática, servida desde Netlify con Cloudflare por delante.",
+      descEn: "Gym landing page: plans, schedules and contact details. Static, served from Netlify behind Cloudflare.",
       tags: ["Landing page", "Netlify", "Cloudflare"] },
 
     { name: "Badboysgym CRM", slug: "badboysgym-crm", url: "", shot: true,
-      descEs: "Panel administrativo tanto para administradores y funcionarios del gym para llevar toda la gestión de planes, servicios de los clientes del Gimnasio.",
-      descEn: "Admin panel for gym owners and staff to manage plans and client services end to end.",
+      descEs: "Panel administrativo con roles y permisos diferenciados para dueños y personal: gestión de planes, clientes y servicios sobre Supabase.",
+      descEn: "Admin panel with separate roles and permissions for owners and staff: plans, clients and services on Supabase.",
       tags: ["CRM", "Roles y permisos", "Supabase"] },
 
     { name: "ElticoFX", slug: "elticofx", url: "https://elticofx.com/", shot: true,
-      descEs: "Landing page enfocada en atracción de clientes para la comunidad de forex e inversión.",
-      descEn: "Landing page focused on client acquisition for a forex and investing community.",
+      descEs: "Landing de captación para una comunidad de forex e inversión. Estructura de embudo, medición de conversión y despliegue en Vercel.",
+      descEn: "Acquisition landing for a forex and investing community. Funnel structure, conversion tracking and deployment on Vercel.",
       tags: ["Landing page", "Conversión", "Vercel"] },
 
     { name: "Comunidad de IA", slug: "comunidad-ia", url: "https://comunidad.abdismart.com/", shot: true,
-      descEs: "Brindamos valor a la comunidad, agregando Agentes de IA, Guias, repositorios etc.",
-      descEn: "We deliver value to the community by adding AI agents, guides, repositories and more.",
+      descEs: "Espacio público con agentes, guías y repositorios para la comunidad. Contenido versionado en GitHub.",
+      descEn: "Public space with agents, guides and repositories for the community. Content versioned on GitHub.",
       tags: ["Agentes IA", "Contenido", "GitHub"] }
   ];
 
@@ -80,33 +80,57 @@
   const CAREER = [
     { company: "Abdismart (Abdi CRM)", current: true,
       roleEs: "Founder, CEO & Lead Tech", roleEn: "Founder, CEO & Lead Tech",
-      periodEs: "2026 — Actualidad", periodEn: "2026 — Present",
+      periodEs: "Ago. 2025 — Actualidad", periodEn: "Aug 2025 — Present",
       placeEs: "Costa Rica · Remoto", placeEn: "Costa Rica · Remote",
-      leadEs: "Desarrollé presencia digital para profesionales de la salud mediante sistemas con IA, landing pages y automatizaciones.",
-      leadEn: "Built digital presence for healthcare professionals through AI-driven systems, landing pages and automations.",
-      pointsEs: ["Diseñé un CRM para consultorios, laboratorios y profesionales de la salud que automatiza la gestión de agendas, permitiendo operar 24/7 en lugar de 8 horas y reduciendo la pérdida de ingresos por citas no gestionadas y cancelaciones."],
-      pointsEn: ["Designed a CRM for clinics, laboratories and healthcare professionals that automates scheduling, enabling 24/7 operation instead of 8 hours and reducing revenue loss from unmanaged appointments and cancellations."],
-      stack: ["React", "Supabase", "Vercel", "Cloudflare", "n8n", "Claude", "ChatGPT", "REST API", "Git", "GitHub"] },
+      leadEs: "Fundé Abdismart, Meta Business Partner, para construir un CRM con agente de IA que automatiza la agenda de consultorios, laboratorios y redes de clínicas. Dueño del producto de punta a punta: arquitectura, backend, panel en React, integraciones con Meta y onboarding de clientes.",
+      leadEn: "I founded Abdismart, a Meta Business Partner, to build an AI-agent CRM that automates scheduling for practices, laboratories and clinic networks. I own the product end to end: architecture, backend, React panel, Meta integrations and client onboarding.",
+      pointsEs: [
+        "Construí un agente conversacional con function calling de OpenAI y 9 herramientas —disponibilidad, registro de pacientes, agendamiento, reprogramación, cancelación, lista de espera y escalamiento a humano— que atiende el 100% de los mensajes entrantes por WhatsApp Business API, Messenger e Instagram.",
+        "Lancé un piloto con 2 clínicas dentales que gestiona ~170 citas al mes: los recordatorios automáticos logran 93% de confirmación y la lista de espera, 78% de reagendamiento, con seguimiento en un panel de métricas dentro del CRM.",
+        "Diseñé una arquitectura multi-cliente sobre Cloudflare Workers y Supabase con los datos aislados por clínica y un onboarding que configura el sistema según el tipo de cliente: profesional independiente o red de consultorios.",
+        "Implementé controles de producción contra bucles agénticos: tope de 5 llamadas consecutivas al modelo sin respuesta final, límite de 30 mensajes por conversación, respuestas restringidas a los datos del consultorio y escalamiento a humano."
+      ],
+      pointsEn: [
+        "Built a conversational agent with OpenAI function calling and 9 tools — availability, patient registration, booking, rescheduling, cancellation, waitlist and human handoff — that handles 100% of inbound messages over WhatsApp Business API, Messenger and Instagram.",
+        "Launched a pilot with 2 dental clinics handling ~170 appointments a month: automated reminders reach 93% confirmation and the waitlist 78% rebooking, tracked in a metrics panel inside the CRM.",
+        "Designed a multi-tenant architecture on Cloudflare Workers and Supabase with per-clinic data isolation and an onboarding flow that configures the system by client type: solo professional or clinic network.",
+        "Shipped production guardrails against agentic loops: a cap of 5 consecutive model calls without a final answer, a 30-message limit per conversation, answers restricted to the practice's own data, and human handoff."
+      ],
+      stack: ["OpenAI", "Function calling", "Cloudflare Workers", "Supabase", "React", "TypeScript", "WhatsApp Business API", "Meta", "Claude Code", "Codex"] },
 
     { company: "Multibank Group", current: false,
       roleEs: "Business Development Manager (BDM)", roleEn: "Business Development Manager (BDM)",
       periodEs: "Dic. 2023 — Jul. 2025", periodEn: "Dec 2023 — Jul 2025",
-      placeEs: "Monterrey, México", placeEn: "Monterrey, Mexico",
-      leadEs: "Optimicé el flujo de onboarding de una landing page, reduciendo la fricción de registro.",
-      leadEn: "Optimized the onboarding flow of a landing page, reducing signup friction.",
-      pointsEs: ["Aumenté los leads calificados diarios de 10 a 50: un crecimiento del 400%."],
-      pointsEn: ["Increased qualified daily leads from 10 to 50: 400% growth."],
-      stack: ["WordPress", "Elementor", "n8n", "ChatGPT", "Supabase", "Git"] },
+      placeEs: "Monterrey, México · Presencial", placeEn: "Monterrey, Mexico · On-site",
+      leadEs: "Gestioné una cartera de clientes de trading en un bróker de CFDs, desde la captación hasta la activación de cuentas.",
+      leadEn: "Managed a trading client portfolio at a CFD broker, from acquisition through account activation.",
+      pointsEs: ["Rediseñé con IA mi landing de captación como un embudo que resuelve objeciones y cierra con un bono de bienvenida: los leads calificados pasaron de 10 a 50 diarios en el primer mes."],
+      pointsEn: ["Rebuilt my acquisition landing page with AI as a funnel that answers objections and closes with a welcome bonus: qualified leads went from 10 to 50 a day within the first month."],
+      stack: ["WordPress", "Elementor", "n8n", "ChatGPT"] },
 
     { company: "Cosvic", current: false,
       roleEs: "Gerente de Ventas", roleEn: "Sales Manager",
-      periodEs: "2021 — Oct. 2023", periodEn: "2021 — Oct 2023",
-      placeEs: "Costa Rica", placeEn: "Costa Rica",
-      leadEs: "Diseñé la presencia digital web y en redes sociales de la empresa.",
-      leadEn: "Designed the company's web and social media presence.",
-      pointsEs: ["Implementé un proceso de ventas que incrementó las ventas en un 30%."],
-      pointsEn: ["Implemented a sales process that increased sales by 30%."],
-      stack: ["WordPress", "Elementor"] }
+      periodEs: "Mar. 2021 — Oct. 2023", periodEn: "Mar 2021 — Oct 2023",
+      placeEs: "Costa Rica · Presencial", placeEn: "Costa Rica · On-site",
+      leadEs: "Dirigí el área comercial de un instituto de cursos, con un equipo de 10 asesores en contratación constante.",
+      leadEn: "Led the commercial team of a training institute: 10 sales advisors under continuous hiring.",
+      pointsEs: [
+        "Diseñé el proceso de ventas y el programa de capacitación del equipo, inexistentes hasta entonces: las ventas subieron 30% en dos trimestres frente al Q1 2021.",
+        "Construí el sitio web y la presencia en redes sociales del instituto."
+      ],
+      pointsEn: [
+        "Designed the sales process and the team's training program, neither of which existed before: sales rose 30% over two quarters against Q1 2021.",
+        "Built the institute's website and social media presence."
+      ],
+      stack: ["WordPress", "Elementor"] },
+
+    { company: "Almacén Mozel S.A. (Artelec)", current: false,
+      roleEs: "Asesor de Ventas", roleEn: "Sales Advisor",
+      periodEs: "2015 — 2021", periodEn: "2015 — 2021",
+      placeEs: "Costa Rica · Presencial", placeEn: "Costa Rica · On-site",
+      leadEs: "Venta de electrodomésticos y atención directa a cliente final.",
+      leadEn: "Home appliance sales and direct customer service.",
+      pointsEs: [], pointsEn: [], stack: [] }
   ];
 
   /* Certifications, newest first. `sort` is YYYYMM so the order does not
@@ -156,30 +180,30 @@
   const COPY = {
     es: {
       skip: "Ir al contenido",
-      nav1: "Servicios", nav2: "Proyectos", nav3: "Sobre mí", nav4: "Recorrido", nav5: "Certificaciones", navCta: "Contacto",
-      availLabel: "Disponible para proyectos",
+      nav1: "Capacidades", nav2: "Proyectos", nav3: "Sobre mí", nav4: "Recorrido", nav5: "Certificaciones", navCta: "Contacto",
+      availLabel: "Abierto a oportunidades",
       heroTitle1: "Ingeniero de", heroTitle2: "Software e IA",
-      heroSub: "Construyo el producto completo para negocios de salud: la landing que capta, el CRM que administra la operación y los agentes de IA que hacen el trabajo repetitivo. 5 años de experiencia, 9 proyectos de IA en producción.",
+      heroSub: "Construyo agentes LLM que llegan a producción. Abdi CRM atiende el 100% de los mensajes entrantes de WhatsApp, Messenger e Instagram, y gestiona ~170 citas al mes con 93% de confirmación. Antes, 10 años en ventas y desarrollo de negocio.",
       heroCta1: "Ver proyectos", heroCta2: "Escríbeme",
       cvLabel: "Descargar CV",
       cvAriaEs: "Descargar CV en español", cvAriaEn: "Descargar CV en inglés",
       metrics: [
-        { value: "05", label: "Años de experiencia" },
-        { value: "09", label: "Proyectos de IA" },
-        { value: "03", label: "CRMs en producción" },
-        { value: "05", label: "Landing pages en vivo" }
+        { value: "170", label: "Citas gestionadas al mes" },
+        { value: "93%", label: "Confirmación con recordatorios" },
+        { value: "100%", label: "Mensajes atendidos por el agente" },
+        { value: "09", label: "Herramientas del agente" }
       ],
-      h2servicios: "Servicios",
+      h2servicios: "Capacidades",
       services: [
-        { num: "S1", title: "Desarrollo web y landing page",
-          body: "Sitios y landings rápidas, medibles y listas para campañas: estructura de conversión, contenido, SEO técnico y despliegue.",
-          meta: "Next.js · Vercel · Netlify" },
-        { num: "S2", title: "CRM personalizados",
-          body: "Paneles hechos a la medida de la operación: clientes, agendas, planes, roles y reportes, sin pagar licencias por usuario.",
-          meta: "Supabase · Postgres · Prisma" },
-        { num: "S3", title: "Agentes de IA",
-          body: "Agentes que atienden, confirman y agendan por WhatsApp, conectados a tu base de datos y a tu calendario real.",
-          meta: "Claude · WhatsApp API · Cloudflare" }
+        { num: "C1", title: "Agentes LLM en producción",
+          body: "Agentes con function calling y herramientas propias que agendan, reprograman, cancelan y escalan a humano. Con guardrails contra bucles agénticos y respuestas restringidas a los datos del cliente.",
+          meta: "OpenAI · Function calling · Guardrails" },
+        { num: "C2", title: "Backend e infraestructura",
+          body: "Arquitectura multi-cliente con los datos aislados por cliente, sobre cómputo en el edge y Postgres administrado. APIs REST y despliegue continuo.",
+          meta: "Cloudflare Workers · Supabase · Vercel" },
+        { num: "C3", title: "Integraciones conversacionales",
+          body: "Canales de Meta conectados de punta a punta: WhatsApp Business API, Messenger e Instagram, con webhooks, reintentos y trazabilidad de cada conversación.",
+          meta: "Meta · WhatsApp Business API · n8n" }
       ],
       h2proyectos: "Proyectos",
       projectsQuip: '<b>200 tazas de café</b>, unos millones de tokens y <b>esto fue lo que sobrevivió</b>.',
@@ -188,11 +212,13 @@
       shotHint: (n) => "Captura de " + n,
       h2sobre: "Sobre mí",
       aboutQ: "¿Quién es",
-      about1: "Ingeniero de Software enfocado en inteligencia artificial aplicada al desarrollo web. Diseño sistemas digitales que ordenan y automatizan la operación de negocios de salud.",
-      about2: "Fundé Abdismart, donde desarrollo un CRM con inteligencia artificial que automatiza la gestión de agendas de profesionales de la salud. Empecé hace 5 años con WordPress y Elementor; hoy trabajo end-to-end: arquitectura, base de datos, frontend, despliegue y los agentes que conectan WhatsApp con la agenda real. También he construido landings y paneles para gimnasios y comunidades.",
+      about1: "Ingeniero de Software e IA. Construyo el producto completo de punta a punta —arquitectura, backend, frontend y despliegue— y agentes LLM que llegan a producción, no solo a una demo.",
+      about2: "Fundé Abdismart, donde construí Abdi CRM: un agente con function calling que atiende el 100% de los mensajes entrantes de WhatsApp, Messenger e Instagram y gestiona ~170 citas al mes con 93% de confirmación, sobre una arquitectura multi-cliente en Cloudflare Workers y Supabase. Antes pasé 10 años en ventas y desarrollo de negocio —trading, educación y retail, en Costa Rica y México—; esa mitad comercial es la que me hace diseñar pensando en la conversión y en el costo de cada mensaje, no solo en que el modelo responda. Busco un rol de AI Software Engineer en un equipo de producto.",
       aboutCta: "Hablemos",
       portraitHint: "Suelta tu foto aquí",
-      skills: ["Landing pages", "CRM personalizados", "Agentes de IA", "WhatsApp API", "Automatizaciones", "WordPress", "Next.js", "Supabase"],
+      skills: ["Agentes LLM", "Function calling", "Guardrails", "Cloudflare Workers", "Supabase", "React", "TypeScript", "WhatsApp Business API"],
+      aboutEduLabel: "Formación",
+      aboutEdu: "Ingeniería en Sistemas — Universidad Autónoma de Centroamérica (UACA). 95% de créditos aprobados, sin concluir.",
       h2career: "Recorrido profesional",
       careerStack: "Stack",
       h2certs: "Certificaciones",
@@ -203,10 +229,10 @@
       certEmpty: "Nada en esta categoría.",
       h2stack: "Stack y herramientas",
       h2contacto: "Contacto",
-      ctaHead: "¿Tienes una operación que automatizar?",
+      ctaHead: "¿Buscás a alguien que lleve agentes a producción?",
       tzLabel: "Zona horaria",
       footerRights: "© 2026 Geiner Porras Vargas · Todos los derechos reservados",
-      footerNote: "Disponible para proyectos y colaboraciones",
+      footerNote: "Abierto a oportunidades como AI Engineer",
       themeToLight: "Cambiar a tema claro",
       themeToDark: "Cambiar a tema oscuro",
       menuOpen: "Abrir menú", menuClose: "Cerrar menú", menuNav: "Secciones",
@@ -214,30 +240,30 @@
     },
     en: {
       skip: "Skip to content",
-      nav1: "Services", nav2: "Work", nav3: "About", nav4: "Journey", nav5: "Certifications", navCta: "Contact",
-      availLabel: "Available for projects",
+      nav1: "Capabilities", nav2: "Work", nav3: "About", nav4: "Journey", nav5: "Certifications", navCta: "Contact",
+      availLabel: "Open to opportunities",
       heroTitle1: "AI & Software", heroTitle2: "Engineer",
-      heroSub: "I build the whole product for healthcare businesses: the landing page that captures, the CRM that runs the operation, and the AI agents that handle the repetitive work. 5 years of experience, 9 AI projects in production.",
+      heroSub: "I build LLM agents that make it to production. Abdi CRM handles 100% of inbound messages on WhatsApp, Messenger and Instagram, and manages ~170 appointments a month at 93% confirmation. Before this, 10 years in sales and business development.",
       heroCta1: "View work", heroCta2: "Get in touch",
       cvLabel: "Download CV",
       cvAriaEs: "Download CV in Spanish", cvAriaEn: "Download CV in English",
       metrics: [
-        { value: "05", label: "Years of experience" },
-        { value: "09", label: "AI projects" },
-        { value: "03", label: "CRMs in production" },
-        { value: "05", label: "Live landing pages" }
+        { value: "170", label: "Appointments handled monthly" },
+        { value: "93%", label: "Confirmation via reminders" },
+        { value: "100%", label: "Inbound messages handled" },
+        { value: "09", label: "Agent tools" }
       ],
-      h2servicios: "Services",
+      h2servicios: "Capabilities",
       services: [
-        { num: "S1", title: "Web development & landing pages",
-          body: "Fast, measurable sites and landing pages ready for campaigns: conversion structure, content, technical SEO and deployment.",
-          meta: "Next.js · Vercel · Netlify" },
-        { num: "S2", title: "Custom CRMs",
-          body: "Panels built around your operation: clients, schedules, plans, roles and reports, with no per-seat licensing.",
-          meta: "Supabase · Postgres · Prisma" },
-        { num: "S3", title: "AI agents",
-          body: "Agents that reply, confirm and book over WhatsApp, wired to your real database and calendar.",
-          meta: "Claude · WhatsApp API · Cloudflare" }
+        { num: "C1", title: "LLM agents in production",
+          body: "Agents with function calling and purpose-built tools that book, reschedule, cancel and hand off to a human. With guardrails against agentic loops and answers restricted to the client's own data.",
+          meta: "OpenAI · Function calling · Guardrails" },
+        { num: "C2", title: "Backend & infrastructure",
+          body: "Multi-tenant architecture with per-client data isolation, on edge compute and managed Postgres. REST APIs and continuous deployment.",
+          meta: "Cloudflare Workers · Supabase · Vercel" },
+        { num: "C3", title: "Conversational integrations",
+          body: "Meta channels wired end to end: WhatsApp Business API, Messenger and Instagram, with webhooks, retries and a trace of every conversation.",
+          meta: "Meta · WhatsApp Business API · n8n" }
       ],
       h2proyectos: "Selected work",
       projectsQuip: '<b>200 cups of coffee</b>, a few million tokens and <b>this is what survived</b>.',
@@ -246,11 +272,13 @@
       shotHint: (n) => n + " screenshot",
       h2sobre: "About",
       aboutQ: "Who is",
-      about1: "Software Engineer focused on artificial intelligence applied to web development. I design digital systems that bring order to and automate the operations of healthcare businesses.",
-      about2: "I founded Abdismart, where I build an AI-powered CRM that automates appointment scheduling for healthcare professionals. I started five years ago with WordPress and Elementor; today I work end to end: architecture, database, frontend, deployment and the agents that connect WhatsApp to the real calendar. I have also built landing pages and panels for gyms and communities.",
+      about1: "AI & Software Engineer. I build the whole product end to end — architecture, backend, frontend and deployment — and LLM agents that make it to production, not just to a demo.",
+      about2: "I founded Abdismart, where I built Abdi CRM: an agent with function calling that handles 100% of inbound messages on WhatsApp, Messenger and Instagram and manages ~170 appointments a month at 93% confirmation, on a multi-tenant architecture running on Cloudflare Workers and Supabase. Before that I spent 10 years in sales and business development — trading, education and retail, across Costa Rica and Mexico; that commercial half is why I design around conversion and the cost of each message, not just around getting the model to answer. I am looking for an AI Software Engineer role on a product team.",
       aboutCta: "Let's talk",
       portraitHint: "Drop your photo here",
-      skills: ["Landing pages", "Custom CRMs", "AI agents", "WhatsApp API", "Automation", "WordPress", "Next.js", "Supabase"],
+      skills: ["LLM agents", "Function calling", "Guardrails", "Cloudflare Workers", "Supabase", "React", "TypeScript", "WhatsApp Business API"],
+      aboutEduLabel: "Education",
+      aboutEdu: "Systems Engineering — Universidad Autónoma de Centroamérica (UACA). 95% of credits completed, unfinished.",
       h2career: "Career journey",
       careerStack: "Stack",
       h2certs: "Certifications",
@@ -261,10 +289,10 @@
       certEmpty: "Nothing in this category.",
       h2stack: "Stack & tools",
       h2contacto: "Contact",
-      ctaHead: "Got an operation to automate?",
+      ctaHead: "Looking for someone to take agents to production?",
       tzLabel: "Time zone",
       footerRights: "© 2026 Geiner Porras Vargas · All rights reserved",
-      footerNote: "Available for projects and collaborations",
+      footerNote: "Open to opportunities as an AI Engineer",
       themeToLight: "Switch to light theme",
       themeToDark: "Switch to dark theme",
       menuOpen: "Open menu", menuClose: "Close menu", menuNav: "Sections",
@@ -432,11 +460,11 @@
             </svg>
           </summary>
           <div class="job-body">
-            <ul class="job-points">${points.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-            <div class="job-stack">
+            ${points.length ? `<ul class="job-points">${points.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+            ${job.stack.length ? `<div class="job-stack">
               <span class="job-stack-label mono">${esc(t.careerStack)}</span>
               <div class="tags">${job.stack.map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>
-            </div>
+            </div>` : ""}
           </div>
         </details>
       </li>`;

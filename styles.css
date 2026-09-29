@@ -210,6 +210,18 @@ img{display:block;max-width:100%}
    con bordes, no con los caracteres ├ └: así no entran al árbol de
    accesibilidad —un lector de pantalla los leería como ruido— y además
    escalan con el tamaño de fuente sin desalinearse. */
+/* Formación: una línea sobria bajo el texto de «Sobre mí». */
+.about-edu{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;
+  margin:18px 0 0;padding-top:16px;
+  border-top:1px solid var(--line-soft);
+  color:var(--dim);font-size:14px;line-height:1.55;
+}
+.about-edu-label{
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent-text);
+}
+
 .menu-tree{
   padding-top:10px;padding-bottom:16px;
   font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;
