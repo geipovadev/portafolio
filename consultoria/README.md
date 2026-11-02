@@ -30,9 +30,21 @@ node --test consultoria/src/*.test.js
 
 (ese comando, desde la raíz del repo).
 
-## Desplegar
+## Vista previa, sin DNS
 
-No despliega el portafolio. Hay que correrlo acá:
+`wrangler.preview.jsonc` es el mismo Worker con el nombre
+`consultoria-geinerporras-preview`, `workers_dev: true`, y sin `routes` ni
+`custom_domain`. Publica solo una URL `*.workers.dev`. No adjunta
+`consultoria.geinerporras.com` y no escribe DNS de `geinerporras.com`.
+
+```bash
+cd consultoria
+npx wrangler deploy -c wrangler.preview.jsonc
+```
+
+## Desplegar el dominio
+
+No despliega el portafolio. Hay que correrlo acá, con el config de producción:
 
 ```bash
 cd consultoria
@@ -147,18 +159,22 @@ El JSON es `{ to, subject, lead }`.
 - 8 envíos por IP cada 10 minutos, en memoria del isolate. No es un límite
   global: otro isolate no lo ve. Alcanza para frenar un script ingenuo.
 
-## Marcadores que hay que reemplazar
+## Qué ya está definido, y qué falta
 
-Nada de esto es un dato real. Está escrito así en la página para que se vea:
+El diagnóstico es virtual, de 45 minutos, a ₡25.000 + IVA, con pago por tarjeta
+vía OnvoPay. Esa frase está en «Qué incluye» y en la FAQ, en español y en
+inglés. No hay link de pago: OnvoPay todavía no tiene uno.
+
+El piloto de Abdi en 2 clínicas dentales muestra ~170 citas al mes, 93% de
+confirmación y 78% de reagendamiento. En inglés: ~170 appointments per month,
+93% confirmation, 78% rescheduling, fuente «Abdi pilot in 2 dental clinics».
+
+No hay testimonio, nombre de cliente ni logo. Esos bloques se quitaron. El
+comentario HTML en la sección del piloto marca dónde volver a ponerlos.
 
 | Marcador | Dónde | Qué hacer |
 | --- | --- | --- |
 | `WHATSAPP_NUMBER` | `public/app.js` (`"50600000000"`) | Número real, solo dígitos, con código de país. Los `href` de reserva del HTML usan el mismo placeholder y el script los pisa. |
-| `[PRECIO]` | Sección «Qué incluye» y la FAQ de costo | Tarifa real, o borrar el bloque. |
-| `[TESTIMONIO]` | Sección «Prueba social» | Cita real, con permiso, o borrar la sección. |
-| `[CLIENTE]` | Sección «Prueba social» | Nombre del negocio, con permiso, o borrar. |
-| `[LOGO]` | Sección «Prueba social» | Logo autorizado, o borrar. |
-| `[MÉTRICA]` | Sección «Prueba social» | Una cifra medida, o borrar. No estimados. |
 
 Analítica, apagada:
 

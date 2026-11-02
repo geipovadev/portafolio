@@ -1,0 +1,19 @@
+{
+  // Vista previa. Mismo Worker que wrangler.jsonc, con otro nombre y sin
+  // hostname propio. `npx wrangler deploy -c wrangler.preview.jsonc` publica
+  // solo en *.workers.dev. No declara routes ni custom_domain, así que no
+  // crea ni modifica DNS de geinerporras.com ni de consultoria.geinerporras.com.
+  "name": "consultoria-geinerporras-preview",
+  "compatibility_date": "2026-09-01",
+  "main": "src/index.js",
+  "workers_dev": true,
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+
+  "observability": { "enabled": true }
+}
