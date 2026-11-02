@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Página no encontrada — Consultoría de IA</title>
+<meta name="theme-color" content="#0B0D0C">
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem("gpv-theme");
+    var theme = saved === "light" || saved === "dark" ? saved
+      : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch (e) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+})();
+</script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="wrap mini">
+  <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> 404</p>
+  <h1 class="mini-title">Esta página no está.</h1>
+  <p class="mini-lead">El formulario y el resto de la consultoría siguen en el inicio.</p>
+  <p class="mini-actions"><a class="btn-lime mono" href="/">Volver al inicio</a></p>
+</main>
+</body>
+</html>
