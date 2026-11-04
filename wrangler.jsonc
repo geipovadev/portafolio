@@ -20,10 +20,15 @@
   },
 
   // custom_domain: true makes Cloudflare create and manage the DNS record
-  // for this hostname. geinerporras.com sirve el sitio; los otros dos existen
-  // solo para que el Worker los pueda redirigir.
+  // for this hostname. Dos de estos sirven sitio —el apex la consultoría y
+  // portafolio.geinerporras.com el portafolio, ver src/index.js—; los otros
+  // dos existen solo para que el Worker los pueda redirigir.
+  //
+  // geinerporras.com va de primero a propósito: `wrangler dev` adopta el
+  // hostname de la primera ruta.
   "routes": [
     { "pattern": "geinerporras.com", "custom_domain": true },
+    { "pattern": "portafolio.geinerporras.com", "custom_domain": true },
     { "pattern": "www.geinerporras.com", "custom_domain": true },
     { "pattern": "portafolio.abdismart.com", "custom_domain": true }
   ],

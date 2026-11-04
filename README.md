@@ -1,28 +1,43 @@
-# Portafolio — Geiner Porras Vargas
+# geinerporras.com — Geiner Porras Vargas
 
-One-pager bilingüe (ES/EN) con tema claro/oscuro. HTML, CSS y JS a mano, sin
-frameworks ni dependencias en tiempo de ejecución. Sí hay un paso de build:
-`build.sh` arma `dist/` y le pone hash de contenido a las imágenes.
+**Dos sitios, un solo Worker**, repartidos por hostname:
 
-En producción: **https://geinerporras.com**
+| En producción                       | Documento         | Para quién                        |
+| ----------------------------------- | ----------------- | --------------------------------- |
+| **https://geinerporras.com**        | `index.html`      | Empresas: consultoría de IA       |
+| **https://portafolio.geinerporras.com** | `portafolio.html` | Reclutadores y equipos técnicos |
 
-`www.geinerporras.com` y el dominio anterior `portafolio.abdismart.com` responden
-con un 301 al dominio canónico.
+Son dos públicos distintos y por eso viven en dominios separados: en el apex no
+hay ni CV ni «abierto a oportunidades», que es lo que le restaba fuerza a la
+oferta de consultoría. Comparten `styles.css`, `assets/` y el mismo `dist/`, así
+que no hay dos despliegues: `src/index.js` decide qué servir según el hostname.
+
+HTML, CSS y JS a mano, sin frameworks ni dependencias en tiempo de ejecución.
+Sí hay un paso de build: `build.sh` arma `dist/` y le pone hash de contenido a
+las imágenes.
+
+El portafolio es bilingüe (ES/EN); la home de consultoría es solo español. Las
+dos tienen tema claro/oscuro.
 
 ## Estructura
 
 ```
-index.html    Estructura y textos estáticos (data-i18n)
-styles.css    Tokens de diseño + layout (ink / acid lime)
-app.js        Datos + render + idioma + tema + interacciones
-src/index.js  Worker: redirige los alias al dominio canónico y sirve dist/
-build.sh      Arma dist/, renombra las imágenes con hash, genera robots+sitemap
-serve.py      Servidor de desarrollo (opcional)
-assets/       Imágenes .webp que sí se publican
-  _originales/  PNG sin comprimir. Ignorados por git y por el build.
+index.html      Consultoría: estructura y textos, escritos directo en el HTML
+consultoria.js  Tema + menú móvil. Nada más: no hay segundo idioma que renderizar
+portafolio.html Portafolio: estructura y textos estáticos (data-i18n)
+app.js          Datos + render + idioma + tema + interacciones del portafolio
+styles.css      Tokens de diseño + layout (ink / acid lime), compartido
+src/index.js    Worker: reparte por hostname y redirige los alias
+build.sh        Arma dist/, renombra las imágenes con hash, genera robots+sitemap
+serve.py        Servidor de desarrollo (opcional)
+assets/         Imágenes .webp que sí se publican
+  _originales/    PNG sin comprimir. Ignorados por git y por el build.
 ```
 
-Secciones: hero, 01 Servicios, 02 Proyectos, 03 Sobre mí, 04 Recorrido
+Consultoría: hero, 01 Señales, 02 Cómo trabajo, 03 Diagnóstico, 04 Después del
+diagnóstico, 05 Quién le va a atender, 06 Contacto.
+
+Portafolio: hero, 01 Capacidades, 02 Proyectos, 03 Sobre mí, 04 Recorrido
 profesional, 05 Certificaciones, 06 Stack, 07 Contacto.
 
 ## Correr en local
@@ -45,8 +60,8 @@ todo funciona igual (ver «Hashing de imágenes»).
 Cloudflare Workers con assets estáticos, cuenta geiner.porras.mb@gmail.com.
 
 `build.sh` arma `dist/` con lo único que debe ser público: `index.html`,
-`styles.css`, `app.js`, `assets/*.webp`, `_headers`, `robots.txt` y
-`sitemap.xml`. El resto del repo —`serve.py`, este README,
+`portafolio.html`, `styles.css`, `app.js`, `consultoria.js`, `assets/*.webp`,
+`_headers`, `robots.txt` y `sitemap.xml`. El resto del repo —`serve.py`, este README,
 `assets/_originales/`— se queda fuera.
 
 `wrangler.jsonc` fija `assets.directory` a `./dist` y declara los tres
@@ -55,14 +70,24 @@ DNS de todos.
 
 ## Dominios y redirecciones
 
-El sitio se sirve solo en `geinerporras.com`. Los otros dos hostnames existen
-para redirigir:
+Dos hostnames sirven sitio y dos redirigen:
 
-| Hostname                   | Qué hace                      |
-| -------------------------- | ----------------------------- |
-| `geinerporras.com`         | sirve el sitio                |
-| `www.geinerporras.com`     | 301 al canónico               |
-| `portafolio.abdismart.com` | 301 al canónico (dominio viejo) |
+| Hostname                        | Qué hace                                      |
+| ------------------------------- | --------------------------------------------- |
+| `geinerporras.com`              | sirve `index.html` (consultoría)              |
+| `portafolio.geinerporras.com`   | sirve `portafolio.html` en `/`                |
+| `www.geinerporras.com`          | 301 al apex                                   |
+| `portafolio.abdismart.com`      | 301 al portafolio (dominio viejo)             |
+
+Además, cada página tiene una sola URL indexable: `/portafolio` y
+`/portafolio.html` en el apex se van con un 301 al subdominio, y `/portafolio`
+en el subdominio se va con un 301 a su raíz.
+
+La raíz del subdominio se **reescribe** a `/portafolio`, sin extensión y sin
+redirigir, para que la URL que ve el visitante siga siendo `/`. Sin extensión a
+propósito: con `html_handling: auto-trailing-slash` —el que viene por
+defecto— pedir `/portafolio.html` devuelve un 307 hacia `/portafolio`, y ese
+salto sí lo vería el navegador.
 
 La decisión está en `src/index.js`, no en reglas del panel de Cloudflare, así
 que vive en el repo y se despliega con el resto. Requiere
@@ -98,8 +123,8 @@ SHA-256 del contenido:
 - imagen distinta → nombre distinto → el visitante la baja, sin purgar nada
 
 `app.js` arma las rutas en runtime desde el slug del proyecto, así que no se
-pueden reescribir por texto. El build inyecta el mapa como `window.__ASSETS` en
-el `index.html` de `dist/`, y `app.js` lo consulta con el helper `asset()`. Sin
+pueden reescribir por texto. El build reescribe las rutas en las dos páginas de `dist/`
+e inyecta el mapa como `window.__ASSETS` en la que carga `app.js`, y `app.js` lo consulta con el helper `asset()`. Sin
 build no hay mapa y se usa la ruta sin hash, que es lo que hace que servir la
 carpeta del proyecto directo siga funcionando.
 

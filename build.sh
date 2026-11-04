@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 rm -rf dist
 mkdir -p dist/assets
-cp index.html styles.css app.js dist/
+cp index.html portafolio.html styles.css app.js consultoria.js dist/
 cp assets/*.webp dist/assets/
 
 cat > dist/_headers <<'HEOF'
@@ -20,10 +20,13 @@ cat > dist/_headers <<'HEOF'
 
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
+
+/portafolio.html
+  Cache-Control: public, max-age=0, must-revalidate
 HEOF
 
-# robots.txt y sitemap.xml: una sola página, pero le dan a los buscadores el
-# dominio canónico explícito.
+# robots.txt y sitemap.xml: una página por sitio —la consultoría en el apex y
+# el portafolio en su subdominio— cada una con su dominio canónico explícito.
 cat > dist/robots.txt <<'REOF'
 User-agent: *
 Allow: /
@@ -36,6 +39,10 @@ cat > dist/sitemap.xml <<SEOF
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://geinerporras.com/</loc>
+    <lastmod>$(date -u +%Y-%m-%d)</lastmod>
+  </url>
+  <url>
+    <loc>https://portafolio.geinerporras.com/</loc>
     <lastmod>$(date -u +%Y-%m-%d)</lastmod>
   </url>
 </urlset>
@@ -60,26 +67,32 @@ for f in sorted((dist / "assets").glob("*.webp")):
     manifest[f"assets/{f.stem}"] = f"assets/{new.stem}"
 
 if manifest:
-    html = (dist / "index.html").read_text()
-
-    # Una sola pasada con las claves más largas primero. Importa: en dos pasadas
-    # "assets/shot-abdi-ia" volvería a hacer match dentro de
+    # Las claves más largas primero, y en una sola pasada. Importa: en dos
+    # pasadas "assets/shot-abdi-ia" volvería a hacer match dentro de
     # "assets/shot-abdi-ia-crm.<hash>" que acabamos de escribir.
     keys = sorted(manifest, key=len, reverse=True)
-    html = re.compile("|".join(re.escape(k) for k in keys)).sub(
-        lambda m: manifest[m.group(0)], html)
+    pattern = re.compile("|".join(re.escape(k) for k in keys))
 
-    # app.js arma las rutas en runtime desde el slug del proyecto, así que no
-    # se puede reescribir por texto: lee este mapa.
     tag = '<script src="app.js"></script>'
-    inject = ("<script>window.__ASSETS="
-              + json.dumps(manifest, separators=(",", ":"), ensure_ascii=False)
-              + ";</script>\n" + tag)
-    if tag not in html:
-        raise SystemExit("build.sh: no encontré el <script src=\"app.js\"> en index.html")
-    html = html.replace(tag, inject, 1)
+    injected = False
 
-    (dist / "index.html").write_text(html)
+    # Las dos páginas del sitio comparten assets/, así que las dos se reescriben.
+    for page in sorted(dist.glob("*.html")):
+        html = pattern.sub(lambda m: manifest[m.group(0)], page.read_text())
+
+        # app.js arma las rutas en runtime desde el slug del proyecto, así que
+        # no se puede reescribir por texto: lee este mapa. Solo lo necesita la
+        # página que carga app.js.
+        if tag in html:
+            html = html.replace(tag, "<script>window.__ASSETS="
+                                + json.dumps(manifest, separators=(",", ":"), ensure_ascii=False)
+                                + ";</script>\n" + tag, 1)
+            injected = True
+
+        page.write_text(html)
+
+    if not injected:
+        raise SystemExit('build.sh: no encontré el <script src="app.js"> en ninguna página')
 
 print(f"  hash aplicado a {len(manifest)} imágenes")
 PY

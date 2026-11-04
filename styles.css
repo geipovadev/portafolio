@@ -914,3 +914,53 @@ img{display:block;max-width:100%}
   /* Sticky cards would print stacked on one page; let them flow. */
   .project{position:static;box-shadow:none}
 }
+
+
+/* ---------- consultoría (index.html) ---------- */
+
+/* Los cuatro pasos del método reusan .service tal cual: lo único distinto es
+   cuántas columnas hay. La regla de .services que estira la tercera tarjeta a
+   todo el ancho existe porque allá son tres; aquí son cuatro y la anularía el
+   2x2, así que se cancela. */
+.services--4{grid-template-columns:repeat(4,1fr)}
+.services--4 .service{min-height:200px}
+.services--4 .service:nth-child(3){grid-column:auto}
+@media (max-width:1100px){.services--4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.services--4{grid-template-columns:1fr}}
+
+/* La oferta: el precio ocupa su propia celda para que sea lo primero que se
+   lee, y el cómo funciona va al lado. Las hairlines son el fondo del
+   contenedor asomando por un hueco de 1px, igual que en .services. */
+.oferta{
+  display:grid;grid-template-columns:minmax(210px,.75fr) 2fr;
+  gap:1px;background:var(--line);border:1px solid var(--line);
+}
+@media (max-width:760px){.oferta{grid-template-columns:1fr}}
+.oferta-head,.oferta-body{background:var(--bg);padding:clamp(24px,3vw,36px) clamp(20px,2.4vw,30px)}
+.oferta-price{
+  margin:0;font-size:clamp(36px,4.6vw,54px);line-height:1;
+  letter-spacing:-.03em;font-weight:500;color:var(--accent-text);
+}
+/* En su propia línea: la celda del precio es angosta y «+ IVA» se partía
+   sola, dejando el «+» colgando al final del número. */
+.oferta-tax{display:block;margin-top:8px;font-size:.3em;letter-spacing:.02em;color:var(--dim-label)}
+.oferta-terms{
+  margin:14px 0 0;font-size:11.5px;line-height:1.6;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--dim-label);
+}
+.oferta-lead{margin:0;max-width:62ch;font-size:15.5px;line-height:1.65;color:var(--dim-soft)}
+.oferta-steps{margin:22px 0 28px;padding:0;list-style:none;counter-reset:paso}
+.oferta-steps li{
+  counter-increment:paso;position:relative;padding-left:34px;
+  font-size:14.5px;line-height:1.6;color:var(--dim-soft);
+}
+.oferta-steps li+li{margin-top:11px}
+.oferta-steps li::before{
+  content:counter(paso,decimal-leading-zero);position:absolute;left:0;top:2px;
+  font-family:var(--mono);font-size:11.5px;color:var(--accent-text);
+}
+
+.porque{display:flex;flex-direction:column;gap:16px;max-width:72ch}
+.porque p{margin:0;font-size:15.5px;line-height:1.7;color:var(--dim-body)}
+.porque-note{font-size:14px;color:var(--dim)}
+.porque-note a{color:var(--text);border-bottom:1px solid var(--accent-edge);padding-bottom:1px}
