@@ -44,6 +44,13 @@ const ALIASES = new Map([
    subdominio en vez de servir la misma página en dos direcciones. */
 const PORTFOLIO_PATHS = new Set(["/portafolio", "/portafolio.html"]);
 
+/* Lo mismo al revés: las páginas de consultoría son del apex. Comparten dist/,
+   así que sin esto también responderían en el subdominio. */
+const CONSULTING_PATHS = new Map([
+  ["/diagnostico", "/diagnostico"],
+  ["/diagnostico.html", "/diagnostico"],
+]);
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -75,6 +82,11 @@ export default {
       /* Aquí el portafolio también vive en una sola URL: la raíz. */
       if (PORTFOLIO_PATHS.has(url.pathname)) {
         return Response.redirect(`https://${PORTFOLIO_HOST}/`, 301);
+      }
+
+      const apexPath = CONSULTING_PATHS.get(url.pathname);
+      if (apexPath) {
+        return Response.redirect(`https://${CANONICAL_HOST}${apexPath}`, 301);
       }
 
       /* La raíz del subdominio sirve el portafolio. Se reescribe en vez de

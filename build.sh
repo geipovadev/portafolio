@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 rm -rf dist
 mkdir -p dist/assets
-cp index.html portafolio.html styles.css app.js consultoria.js dist/
+cp index.html diagnostico.html portafolio.html styles.css app.js consultoria.js dist/
 cp assets/*.webp dist/assets/
 
 cat > dist/_headers <<'HEOF'
@@ -23,10 +23,13 @@ cat > dist/_headers <<'HEOF'
 
 /portafolio.html
   Cache-Control: public, max-age=0, must-revalidate
+
+/diagnostico.html
+  Cache-Control: public, max-age=0, must-revalidate
 HEOF
 
-# robots.txt y sitemap.xml: una página por sitio —la consultoría en el apex y
-# el portafolio en su subdominio— cada una con su dominio canónico explícito.
+# robots.txt y sitemap.xml: cada página con su dominio canónico explícito —la
+# consultoría y el diagnóstico en el apex, el portafolio en su subdominio—.
 cat > dist/robots.txt <<'REOF'
 User-agent: *
 Allow: /
@@ -39,6 +42,10 @@ cat > dist/sitemap.xml <<SEOF
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://geinerporras.com/</loc>
+    <lastmod>$(date -u +%Y-%m-%d)</lastmod>
+  </url>
+  <url>
+    <loc>https://geinerporras.com/diagnostico</loc>
     <lastmod>$(date -u +%Y-%m-%d)</lastmod>
   </url>
   <url>

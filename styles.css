@@ -964,3 +964,28 @@ img{display:block;max-width:100%}
 .porque p{margin:0;font-size:15.5px;line-height:1.7;color:var(--dim-body)}
 .porque-note{font-size:14px;color:var(--dim)}
 .porque-note a{color:var(--text);border-bottom:1px solid var(--accent-edge);padding-bottom:1px}
+
+/* Casos: misma retícula que .oferta —la cifra en su propia celda, el relato al
+   lado— porque hacen lo mismo, poner un número antes que el texto. */
+.caso{
+  display:grid;grid-template-columns:minmax(210px,.75fr) 2fr;
+  gap:1px;background:var(--line);border:1px solid var(--line);
+}
+.caso+.caso{margin-top:clamp(18px,2.5vw,26px)}
+@media (max-width:760px){.caso{grid-template-columns:1fr}}
+.caso-head,.caso-body{background:var(--bg);padding:clamp(24px,3vw,36px) clamp(20px,2.4vw,30px)}
+.caso-val{
+  margin:0;font-size:clamp(36px,4.6vw,54px);line-height:1;
+  letter-spacing:-.03em;font-weight:500;color:var(--accent-text);
+}
+.caso-val small{
+  display:block;margin-top:10px;font-family:var(--mono);font-size:.22em;
+  line-height:1.5;letter-spacing:.05em;text-transform:uppercase;color:var(--dim-label);
+}
+.caso-name{margin:0 0 14px;font-size:clamp(19px,2vw,23px);letter-spacing:-.01em;font-weight:500}
+.caso-body p{margin:0;font-size:15px;line-height:1.65;color:var(--dim-soft)}
+.caso-body p+p{margin-top:14px}
+.caso-list{margin:14px 0;padding:0;list-style:none}
+.caso-list li{position:relative;padding-left:22px;font-size:14.5px;line-height:1.6;color:var(--dim-soft)}
+.caso-list li+li{margin-top:9px}
+.caso-list li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:1px;background:var(--accent-edge)}

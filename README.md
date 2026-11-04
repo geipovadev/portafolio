@@ -5,6 +5,7 @@
 | En producción                       | Documento         | Para quién                        |
 | ----------------------------------- | ----------------- | --------------------------------- |
 | **https://geinerporras.com**        | `index.html`      | Empresas: consultoría de IA       |
+| **https://geinerporras.com/diagnostico** | `diagnostico.html` | Qué incluye el diagnóstico, el método y los casos |
 | **https://portafolio.geinerporras.com** | `portafolio.html` | Reclutadores y equipos técnicos |
 
 Son dos públicos distintos y por eso viven en dominios separados: en el apex no
@@ -23,7 +24,8 @@ dos tienen tema claro/oscuro.
 
 ```
 index.html      Consultoría: estructura y textos, escritos directo en el HTML
-consultoria.js  Tema + menú móvil. Nada más: no hay segundo idioma que renderizar
+diagnostico.html La oferta: qué incluye, el método paso a paso y los casos
+consultoria.js  Tema + menú móvil, compartido por las dos páginas de consultoría
 portafolio.html Portafolio: estructura y textos estáticos (data-i18n)
 app.js          Datos + render + idioma + tema + interacciones del portafolio
 styles.css      Tokens de diseño + layout (ink / acid lime), compartido
@@ -34,8 +36,11 @@ assets/         Imágenes .webp que sí se publican
   _originales/    PNG sin comprimir. Ignorados por git y por el build.
 ```
 
-Consultoría: hero, 01 Señales, 02 Cómo trabajo, 03 Diagnóstico, 04 Después del
-diagnóstico, 05 Quién le va a atender, 06 Contacto.
+Consultoría: hero, 01 Señales, 02 Cómo trabajo, 03 Por dónde se empieza,
+04 Después del diagnóstico, 05 Quién le va a atender, 06 Contacto.
+
+Diagnóstico: hero, 01 Qué incluye, 02 El método paso a paso, 03 Dónde ya se
+aplicó, 04 Contacto. **El precio vive solo acá**, no en la home.
 
 Portafolio: hero, 01 Capacidades, 02 Proyectos, 03 Sobre mí, 04 Recorrido
 profesional, 05 Certificaciones, 06 Stack, 07 Contacto.
@@ -60,8 +65,8 @@ todo funciona igual (ver «Hashing de imágenes»).
 Cloudflare Workers con assets estáticos, cuenta geiner.porras.mb@gmail.com.
 
 `build.sh` arma `dist/` con lo único que debe ser público: `index.html`,
-`portafolio.html`, `styles.css`, `app.js`, `consultoria.js`, `assets/*.webp`,
-`_headers`, `robots.txt` y `sitemap.xml`. El resto del repo —`serve.py`, este README,
+`diagnostico.html`, `portafolio.html`, `styles.css`, `app.js`, `consultoria.js`,
+`assets/*.webp`, `_headers`, `robots.txt` y `sitemap.xml`. El resto del repo —`serve.py`, este README,
 `assets/_originales/`— se queda fuera.
 
 `wrangler.jsonc` fija `assets.directory` a `./dist` y declara los tres
@@ -80,8 +85,9 @@ Dos hostnames sirven sitio y dos redirigen:
 | `portafolio.abdismart.com`      | 301 al portafolio (dominio viejo)             |
 
 Además, cada página tiene una sola URL indexable: `/portafolio` y
-`/portafolio.html` en el apex se van con un 301 al subdominio, y `/portafolio`
-en el subdominio se va con un 301 a su raíz.
+`/portafolio.html` en el apex se van con un 301 al subdominio, `/portafolio` en
+el subdominio se va con un 301 a su raíz, y `/diagnostico` en el subdominio se
+va con un 301 al apex.
 
 La raíz del subdominio se **reescribe** a `/portafolio`, sin extensión y sin
 redirigir, para que la URL que ve el visitante siga siendo `/`. Sin extensión a
