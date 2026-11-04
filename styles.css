@@ -989,3 +989,58 @@ img{display:block;max-width:100%}
 .caso-list li{position:relative;padding-left:22px;font-size:14.5px;line-height:1.6;color:var(--dim-soft)}
 .caso-list li+li{margin-top:9px}
 .caso-list li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:1px;background:var(--accent-edge)}
+
+/* ---------- el método, animado (diagnostico.html) ---------- */
+
+/* Dos columnas y no cuatro: cada paso trae un diagrama, y a 290px de ancho no
+   se lee. La regla de .services que estira la tercera tarjeta no aplica acá. */
+.services--2{grid-template-columns:repeat(2,1fr)}
+.services--2 .service:nth-child(3){grid-column:auto}
+@media (max-width:760px){.services--2{grid-template-columns:1fr}}
+
+/* Los diagramas cuentan lo mismo que el texto —qué se anota, cuál se elige,
+   qué se prueba, qué queda corriendo—, no son adorno.
+   Las animaciones solo se declaran bajo .is-in, que pone consultoria.js cuando
+   la tarjeta entra en pantalla. Sin JavaScript no hay ninguna animación y el
+   SVG se ve en su estado final: por eso el markup dibuja el final y no el
+   principio, y por eso stroke-dasharray vive en el CSS y no en el atributo.
+   Con prefers-reduced-motion el bloque de motion de más arriba deja cada
+   animación en su último fotograma, que es ese mismo diagrama terminado. */
+.paso-anim{display:block;width:100%;height:auto;margin:2px 0 6px}
+.paso-anim .pa-track{fill:var(--line-3)}
+.paso-anim .pa-bar{fill:var(--line-3)}
+.paso-anim .pa-bar.pa-pick{fill:var(--accent)}
+.paso-anim .pa-edge{stroke:var(--line-3);stroke-width:1.5;fill:none}
+/* Trazos y texto van con --accent-text, no con --accent: en tema claro el
+   lima sigue siendo #E6FF55 —sirve de relleno, como en los botones— pero una
+   línea de 2px de ese color sobre fondo claro no se ve. */
+.paso-anim .pa-accent{stroke:var(--accent-text);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.paso-anim .pa-dot{fill:var(--accent-text)}
+.paso-anim .pa-tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;fill:var(--dim-label)}
+.paso-anim .pa-tag.pa-lime{fill:var(--accent-text)}
+.paso-anim .anim-bar{transform-box:fill-box;transform-origin:left center}
+.paso-anim .anim-row{transform-box:fill-box}
+
+@keyframes pasoRow{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@keyframes pasoBar{from{transform:scaleX(.03)}to{transform:scaleX(1)}}
+@keyframes pasoDim{from{opacity:1}to{opacity:.2}}
+@keyframes pasoPick{from{fill:var(--line-3)}to{fill:var(--accent)}}
+@keyframes pasoDraw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes pasoPop{from{opacity:0}to{opacity:1}}
+@keyframes pasoPulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.service.is-in .anim-row{animation:pasoRow .5s cubic-bezier(.22,.61,.36,1) both var(--d,0s)}
+.service.is-in .anim-bar{animation:pasoBar .6s cubic-bezier(.22,.61,.36,1) both var(--d,0s)}
+.service.is-in .anim-dim{animation:pasoDim .45s ease both var(--d,0s)}
+.service.is-in .anim-pick{animation:pasoPick .45s ease both var(--d,0s)}
+.service.is-in .anim-pop{animation:pasoPop .35s ease both var(--d,0s)}
+.service.is-in .anim-draw{
+  stroke-dasharray:100;
+  animation:pasoDraw .9s cubic-bezier(.4,0,.2,1) both var(--d,0s);
+}
+/* Dos latidos y se queda quieto: un pulso infinito al lado de un texto es
+   justo lo que hace que nadie lea el texto. */
+.service.is-in .anim-pulse{
+  animation:pasoPop .35s ease both var(--d,0s),
+            pasoPulse 1.6s ease-in-out 2 calc(var(--d,0s) + .35s);
+}

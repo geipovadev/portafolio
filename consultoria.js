@@ -48,6 +48,35 @@
 
   applyTheme(currentTheme());
 
+  /* ---------- animaciones del método ---------- */
+
+  /* Cada diagrama arranca cuando su tarjeta entra en pantalla, y una sola vez:
+     volver a subir no las reinicia. La clase .is-in es lo único que enciende
+     las animaciones en styles.css, así que sin JavaScript —o sin
+     IntersectionObserver— el SVG se queda dibujado en su estado final, que ya
+     es el diagrama completo. */
+  (function animarPasos() {
+    const anims = document.querySelectorAll(".paso-anim");
+    if (!anims.length) return;
+
+    const cards = [...anims].map((a) => a.closest(".service")).filter(Boolean);
+
+    if (!("IntersectionObserver" in window)) {
+      cards.forEach((c) => c.classList.add("is-in"));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, obs) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add("is-in");
+        obs.unobserve(e.target);
+      }
+    }, { threshold: 0.3 });
+
+    cards.forEach((c) => io.observe(c));
+  })();
+
   /* ---------- menú móvil ---------- */
 
   (function wireMenu() {

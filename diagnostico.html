@@ -147,27 +147,91 @@
 <section id="metodo" class="wrap section">
   <div class="sec-head"><span class="num mono">02</span><h2>El método, paso a paso</h2></div>
   <p class="quip"><b>Procesos primero, herramienta después.</b> El error más común al implementar IA es enamorarse de la herramienta antes de entender el problema. Estos cuatro pasos son el mismo orden en los dos casos de abajo.</p>
-  <div class="services services--4">
+  <div class="services services--2">
     <article class="service">
       <span class="service-num mono">01</span>
+      <svg class="paso-anim" viewBox="0 0 300 112" role="img" aria-label="Cuatro tareas repetitivas anotadas, cada una con los minutos que se lleva al día.">
+        <g class="anim-row" style="--d:0s">
+          <rect class="pa-track" x="0" y="11" width="52" height="6" rx="3"/>
+          <rect class="pa-bar anim-bar" x="66" y="8" width="118" height="12" rx="6" style="--d:.10s"/>
+          <text class="pa-tag" x="300" y="20" text-anchor="end">40 MIN</text>
+        </g>
+        <g class="anim-row" style="--d:.12s">
+          <rect class="pa-track" x="0" y="39" width="52" height="6" rx="3"/>
+          <rect class="pa-bar anim-bar" x="66" y="36" width="62" height="12" rx="6" style="--d:.22s"/>
+          <text class="pa-tag" x="300" y="48" text-anchor="end">15 MIN</text>
+        </g>
+        <g class="anim-row" style="--d:.24s">
+          <rect class="pa-track" x="0" y="67" width="52" height="6" rx="3"/>
+          <rect class="pa-bar anim-bar" x="66" y="64" width="172" height="12" rx="6" style="--d:.34s"/>
+          <text class="pa-tag" x="300" y="76" text-anchor="end">70 MIN</text>
+        </g>
+        <g class="anim-row" style="--d:.36s">
+          <rect class="pa-track" x="0" y="95" width="52" height="6" rx="3"/>
+          <rect class="pa-bar anim-bar" x="66" y="92" width="92" height="12" rx="6" style="--d:.46s"/>
+          <text class="pa-tag" x="300" y="104" text-anchor="end">25 MIN</text>
+        </g>
+      </svg>
       <h3>Mapear</h3>
       <p>Anotamos qué hace su equipo a mano todos los días: cuántas veces, cuántos minutos y quién lo hace. Casi siempre aparecen tareas que nadie había contado nunca.</p>
       <span class="service-meta">Qué se hace hoy</span>
     </article>
     <article class="service">
       <span class="service-num mono">02</span>
+      <svg class="paso-anim" viewBox="0 0 300 112" role="img" aria-label="De las cuatro tareas queda elegida una: la que más minutos se lleva.">
+        <g class="anim-dim" style="--d:.45s">
+          <rect class="pa-track" x="0" y="11" width="52" height="6" rx="3"/>
+          <rect class="pa-bar" x="66" y="8" width="118" height="12" rx="6"/>
+          <text class="pa-tag" x="300" y="20" text-anchor="end">40 MIN</text>
+        </g>
+        <g class="anim-dim" style="--d:.5s">
+          <rect class="pa-track" x="0" y="39" width="52" height="6" rx="3"/>
+          <rect class="pa-bar" x="66" y="36" width="62" height="12" rx="6"/>
+          <text class="pa-tag" x="300" y="48" text-anchor="end">15 MIN</text>
+        </g>
+        <g>
+          <rect class="pa-track" x="0" y="67" width="52" height="6" rx="3"/>
+          <rect class="pa-bar pa-pick anim-pick" x="66" y="64" width="172" height="12" rx="6" style="--d:.45s"/>
+          <rect class="pa-dot anim-bar" x="66" y="80" width="172" height="2" rx="1" style="--d:.55s"/>
+          <text class="pa-tag pa-lime anim-pop" x="300" y="76" text-anchor="end" style="--d:.7s">ELEGIDA</text>
+        </g>
+        <g class="anim-dim" style="--d:.55s">
+          <rect class="pa-track" x="0" y="95" width="52" height="6" rx="3"/>
+          <rect class="pa-bar" x="66" y="92" width="92" height="12" rx="6"/>
+          <text class="pa-tag" x="300" y="104" text-anchor="end">25 MIN</text>
+        </g>
+      </svg>
       <h3>Priorizar</h3>
       <p>De esa lista sale una sola tarea: cruzamos cuántas horas come con qué tan fácil es cambiarla, y la que gana es por donde se empieza. Las otras quedan anotadas para después.</p>
       <span class="service-meta">Qué se ataca primero</span>
     </article>
     <article class="service">
       <span class="service-num mono">03</span>
+      <svg class="paso-anim" viewBox="0 0 300 112" role="img" aria-label="La tarea elegida se prueba en un pedazo pequeño de la operación, que sigue funcionando igual.">
+        <rect class="pa-edge" x="1" y="9" width="298" height="94" rx="8" opacity=".45"/>
+        <text class="pa-tag" x="14" y="28">SU OPERACIÓN</text>
+        <rect class="pa-accent anim-draw" x="22" y="42" width="112" height="48" rx="8" pathLength="100" style="--d:.1s"/>
+        <text class="pa-tag pa-lime anim-pop" x="34" y="60" style="--d:.9s">UNA TAREA</text>
+        <path class="pa-accent anim-draw" d="M38 72 l9 9 l20 -20" pathLength="100" style="--d:1.05s"/>
+        <text class="pa-tag" x="152" y="70">el resto sigue igual</text>
+      </svg>
       <h3>Probar en pequeño</h3>
       <p>Una prueba corta y acotada, con su gente usándola de verdad y no en una demo. Si no sirve, se sabe pronto y barato, y se vuelve al paso dos.</p>
       <span class="service-meta">Qué se valida</span>
     </article>
     <article class="service">
       <span class="service-num mono">04</span>
+      <svg class="paso-anim" viewBox="0 0 300 112" role="img" aria-label="Lo que funcionó queda corriendo todos los días y medido.">
+        <g opacity=".4">
+          <line class="pa-edge" x1="0" y1="24" x2="300" y2="24"/>
+          <line class="pa-edge" x1="0" y1="58" x2="300" y2="58"/>
+          <line class="pa-edge" x1="0" y1="92" x2="300" y2="92"/>
+        </g>
+        <path class="pa-accent anim-draw" d="M6 88 L66 80 L126 60 L186 50 L246 28 L286 18" pathLength="100" style="--d:.15s"/>
+        <circle class="pa-dot anim-pulse" cx="286" cy="18" r="5" style="--d:1.1s"/>
+        <text class="pa-tag" x="0" y="110">CORRIENDO TODOS LOS DÍAS</text>
+        <text class="pa-tag pa-lime anim-pop" x="300" y="110" text-anchor="end" style="--d:1.1s">MIDIENDO</text>
+      </svg>
       <h3>Llevar a producción</h3>
       <p>Lo que funcionó queda corriendo todos los días, medido y con alguien a cargo. Sin proyectos de seis meses y sin una herramienta más que nadie abre.</p>
       <span class="service-meta">Qué queda andando</span>
