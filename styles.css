@@ -1082,3 +1082,11 @@ img{display:block;max-width:100%}
 .footer-legal{display:flex;flex-wrap:wrap;gap:18px}
 .footer-legal a{color:var(--dim)}
 .footer-legal a:hover{color:var(--accent-text)}
+/* El monograma sustituye al punto de la marca. Son dos archivos y no un
+   filtro como .tool-icon: el logo claro es bitono (hueso y lima) y un
+   invert convertiria el lima en morado. */
+.brand-logo{height:24px;width:auto;display:block;flex:none}
+.brand-logo--light{display:none}
+:root[data-theme="light"] .brand-logo--dark{display:none}
+:root[data-theme="light"] .brand-logo--light{display:block}
+@media(max-width:600px){.brand-logo{height:20px}}
