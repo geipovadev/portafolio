@@ -81,7 +81,7 @@
 
   /* El ID del píxel. Vacío = no se carga nada, que es lo que debe pasar en
      local y en cualquier copia del repo que no sea el sitio de Geiner. */
-  const PIXEL_ID = "";
+  const PIXEL_ID = "1191798346749858";
 
   /* Solo lo llevan las páginas que lo declaran con <body data-pixel>: la home
      y el diagnóstico. Privacidad y términos quedan fuera a propósito. Un
