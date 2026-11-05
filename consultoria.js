@@ -77,6 +77,71 @@
     cards.forEach((c) => io.observe(c));
   })();
 
+  /* ---------- píxel de Meta ---------- */
+
+  /* El ID del píxel. Vacío = no se carga nada, que es lo que debe pasar en
+     local y en cualquier copia del repo que no sea el sitio de Geiner. */
+  const PIXEL_ID = "";
+
+  /* Solo lo llevan las páginas que lo declaran con <body data-pixel>: la home
+     y el diagnóstico. Privacidad y términos quedan fuera a propósito. Un
+     píxel publicitario en la página que explica que no lo hay, o siguiendo a
+     quien entra a pedir que le borren los datos, no se defiende, y esas
+     visitas tampoco sirven para optimizar una campaña. */
+  (function metaPixel() {
+    if (!PIXEL_ID || !document.body.hasAttribute("data-pixel")) return;
+
+    let started = false;
+
+    /* El snippet oficial de Meta, con una sola diferencia: el <script> no se
+       inserta al cargar la página sino cuando esto se llama. Son ~70 KB de
+       terceros; metidos en el camino crítico se los come el primer pintado. */
+    function start() {
+      if (started) return;
+      started = true;
+      off();
+
+      /* eslint-disable */
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+      (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      /* eslint-enable */
+
+      window.fbq("init", PIXEL_ID);
+      window.fbq("track", "PageView");
+    }
+
+    /* fbq encola lo que le llegue antes de que el script baje, así que un
+       evento disparado en el mismo clic que arranca el píxel no se pierde. */
+    function track(name) {
+      start();
+      window.fbq("track", name);
+    }
+
+    const triggers = ["pointerdown", "keydown", "touchstart", "scroll"];
+    const off = () => triggers.forEach((e) => window.removeEventListener(e, start));
+    triggers.forEach((e) => window.addEventListener(e, start, { passive: true }));
+
+    /* Quien no toca nada igual cuenta como visita: al terminar de cargar, en
+       el primer hueco libre del navegador. Sin esto se perderían los rebotes,
+       que son justo los que la campaña necesita medir. */
+    const idle = () => (window.requestIdleCallback || ((f) => setTimeout(f, 1200)))(start);
+    if (document.readyState === "complete") idle();
+    else window.addEventListener("load", idle, { once: true });
+
+    /* Este sitio no tiene formularios: la conversión es el clic que se lleva
+       a la persona a WhatsApp o al correo. Se escucha en document para que
+       siga funcionando si mañana se agrega otro CTA. */
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (!a) return;
+      if (a.dataset.agenda !== undefined) track("Lead");
+      else if (a.href.startsWith("mailto:") || a.href.includes("wa.me/")) track("Contact");
+    });
+  })();
+
   /* ---------- menú móvil ---------- */
 
   (function wireMenu() {
