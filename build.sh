@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 rm -rf dist
 mkdir -p dist/assets
-cp index.html diagnostico.html privacidad.html terminos.html portafolio.html styles.css app.js consultoria.js dist/
+cp index.html diagnostico.html privacidad.html terminos.html portafolio.html styles.css app.js consultoria.js favicon.ico apple-touch-icon.png dist/
 cp assets/*.webp dist/assets/
 
 cat > dist/_headers <<'HEOF'
