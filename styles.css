@@ -1044,3 +1044,41 @@ img{display:block;max-width:100%}
   animation:pasoPop .35s ease both var(--d,0s),
             pasoPulse 1.6s ease-in-out 2 calc(var(--d,0s) + .35s);
 }
+
+/* ---------- páginas legales (privacidad.html, terminos.html) ---------- */
+
+/* En estas dos páginas el contenido es el texto, no el titular: el título baja
+   de tamaño para no robarle el aire a lo que de verdad hay que leer. */
+.hero--doc{padding-bottom:clamp(26px,4vw,44px)}
+.hero--doc .hero-title{font-size:clamp(32px,5.4vw,62px);line-height:1.02}
+.legal-meta{
+  margin:20px 0 0;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--dim-label);
+}
+
+/* 68ch: el límite al que una línea de texto corrido se sigue leyendo sin que
+   el ojo pierda el renglón al volver. */
+.legal{max-width:68ch}
+.legal p{margin:0;font-size:15px;line-height:1.7;color:var(--dim-soft)}
+.legal p+p,.legal p+ul,.legal ul+p{margin-top:14px}
+.legal h3{
+  margin:30px 0 11px;font-size:16px;font-weight:500;
+  letter-spacing:-.01em;color:var(--text);
+}
+.legal h3:first-child{margin-top:0}
+.legal ul{margin:0;padding:0;list-style:none}
+.legal li{position:relative;padding-left:22px;font-size:14.5px;line-height:1.65;color:var(--dim-soft)}
+.legal li+li{margin-top:9px}
+.legal li::before{content:"";position:absolute;left:0;top:12px;width:10px;height:1px;background:var(--accent-edge)}
+.legal b,.legal strong{color:var(--text);font-weight:500}
+.legal a{
+  color:var(--text);text-decoration:underline;
+  text-decoration-color:var(--accent-edge);text-underline-offset:3px;
+}
+.legal a:hover{text-decoration-color:var(--accent-text)}
+
+/* Los enlaces legales viven en el pie de las tres páginas: es el único lugar
+   desde donde se llega a ellos, así que tienen que verse clicables. */
+.footer-legal{display:flex;flex-wrap:wrap;gap:18px}
+.footer-legal a{color:var(--dim)}
+.footer-legal a:hover{color:var(--accent-text)}

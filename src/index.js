@@ -49,6 +49,10 @@ const PORTFOLIO_PATHS = new Set(["/portafolio", "/portafolio.html"]);
 const CONSULTING_PATHS = new Map([
   ["/diagnostico", "/diagnostico"],
   ["/diagnostico.html", "/diagnostico"],
+  ["/privacidad", "/privacidad"],
+  ["/privacidad.html", "/privacidad"],
+  ["/terminos", "/terminos"],
+  ["/terminos.html", "/terminos"],
 ]);
 
 export default {

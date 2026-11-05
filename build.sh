@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 rm -rf dist
 mkdir -p dist/assets
-cp index.html diagnostico.html portafolio.html styles.css app.js consultoria.js dist/
+cp index.html diagnostico.html privacidad.html terminos.html portafolio.html styles.css app.js consultoria.js dist/
 cp assets/*.webp dist/assets/
 
 cat > dist/_headers <<'HEOF'
@@ -25,6 +25,12 @@ cat > dist/_headers <<'HEOF'
   Cache-Control: public, max-age=0, must-revalidate
 
 /diagnostico.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/privacidad.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/terminos.html
   Cache-Control: public, max-age=0, must-revalidate
 HEOF
 
@@ -46,6 +52,14 @@ cat > dist/sitemap.xml <<SEOF
   </url>
   <url>
     <loc>https://geinerporras.com/diagnostico</loc>
+    <lastmod>$(date -u +%Y-%m-%d)</lastmod>
+  </url>
+  <url>
+    <loc>https://geinerporras.com/privacidad</loc>
+    <lastmod>$(date -u +%Y-%m-%d)</lastmod>
+  </url>
+  <url>
+    <loc>https://geinerporras.com/terminos</loc>
     <lastmod>$(date -u +%Y-%m-%d)</lastmod>
   </url>
   <url>
