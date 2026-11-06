@@ -296,3 +296,9 @@ Los archivos tienen que estar en «Cualquier persona con el enlace».
 
 Para reemplazar un CV, usá **«Gestionar versiones»** en Drive. Si subís un
 archivo nuevo, Drive le da otro ID y los botones del sitio se rompen.
+
+## Consultoría
+
+La landing de `consultoria.geinerporras.com` vive en `consultoria/` y es otro
+Worker (`consultoria-geinerporras`). No se despliega con el comando de arriba.
+Instrucciones, DNS y el formulario: `consultoria/README.md`.

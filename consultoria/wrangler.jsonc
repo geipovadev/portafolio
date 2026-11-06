@@ -1,0 +1,56 @@
+{
+  // Worker aparte del sitio geinerporras.com (ese se llama "portafolio" y
+  // se despliega desde la raíz del repo). No comparten script ni rutas.
+  "name": "consultoria-geinerporras",
+  "compatibility_date": "2026-09-01",
+  "main": "src/index.js",
+
+  // Subdominio de workers.dev, además del dominio propio. No toca DNS de
+  // geinerporras.com. El dominio propio sí: ver el bloque routes y el README.
+  "workers_dev": true,
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Solo la API pasa por el Worker. El HTML, CSS y la foto los sirve
+    // la capa de assets.
+    "run_worker_first": ["/api/*"]
+  },
+
+  // custom_domain: true le pide a Cloudflare que cree y mantenga el registro
+  // DNS de ESTE hostname cuando alguien despliegue. No declara el apex ni
+  // www. El deploy es lo que escribe DNS; este archivo, no.
+  "routes": [
+    { "pattern": "consultoria.geinerporras.com", "custom_domain": true }
+  ],
+
+  "observability": { "enabled": true }
+
+  // D1, declarado pero apagado. Con el binding comentado el deploy funciona
+  // sin secretos y sin base: el formulario cae en el stub de logs
+  // (src/lead-store.js). Para persistir de verdad:
+  //
+  //   npx wrangler d1 create consultoria-leads
+  //
+  // Copiá el database_id que imprime y descomentá el bloque. Después:
+  //
+  //   npx wrangler d1 execute consultoria-leads --remote --file=schema.sql
+  //
+  // El Worker igual corre CREATE TABLE IF NOT EXISTS en el primer envío.
+  //
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "consultoria-leads",
+  //     "database_id": "PEGAR-EL-UUID-ACA"
+  //   }
+  // ]
+  //
+  // Abdi IA CRM y el webhook de correo no van acá. Son secretos:
+  //   npx wrangler secret put ABDI_CRM_TOKEN
+  //   npx wrangler secret put ABDI_CRM_URL
+  //   npx wrangler secret put LEAD_EMAIL_WEBHOOK
+  //   npx wrangler secret put LEAD_EMAIL_TOKEN
+  // Ver README, sección «A dónde van los formularios».
+}
