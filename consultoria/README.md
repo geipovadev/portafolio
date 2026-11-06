@@ -168,13 +168,20 @@ inglés. No hay link de pago: OnvoPay todavía no tiene uno.
 El piloto de Abdi en 2 clínicas dentales muestra ~170 citas al mes, 93% de
 confirmación y 78% de reagendamiento. En inglés: ~170 appointments per month,
 93% confirmation, 78% rescheduling, fuente «Abdi pilot in 2 dental clinics».
+Ese bloque es el producto Abdi, no un caso de consultoría.
 
-No hay testimonio, nombre de cliente ni logo. Esos bloques se quitaron. El
-comentario HTML en la sección del piloto marca dónde volver a ponerlos.
+El caso de consultoría es aparte: CR Trail Adventure, agencia de tours, con
+problemas de servicio al cliente y de cierre de reservas. Geiner analizó
+ventas y administración, aplicó el Método Abdi y dejó una landing de tours
+más un CRM personalizado con agente 24/7 y un proceso de reserva. El dueño
+reporta +10% de ventas en el primer mes. La cifra sale del reporte de Geiner,
+no está verificada de forma independiente y no es una garantía.
 
-| Marcador | Dónde | Qué hacer |
-| --- | --- | --- |
-| `WHATSAPP_NUMBER` | `public/app.js` (`"50600000000"`) | Número real, solo dígitos, con código de país. Los `href` de reserva del HTML usan el mismo placeholder y el script los pisa. |
+WhatsApp: `wa.me/50660103635`, en pantalla `+506 6010 3635`. La constante es
+`WHATSAPP_NUMBER` en `public/app.js`.
+
+No hay cita textual, logo ni otros nombres de cliente. El comentario HTML en
+la sección del piloto marca dónde irían.
 
 Analítica, apagada:
 

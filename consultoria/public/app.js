@@ -4,10 +4,9 @@
 (() => {
   "use strict";
 
-  /* Número de ejemplo. Solo dígitos, con código de país, sin +.
-     Reemplazar antes de publicar. También está en los href de reserva
-     del HTML; esta constante los pisa al cargar. */
-  const WHATSAPP_NUMBER = "50600000000";
+  /* Solo dígitos, con código de país, sin +. Los href del HTML usan el
+     mismo número; esta constante los rearma al cargar. */
+  const WHATSAPP_NUMBER = "50660103635";
 
   /* Analítica apagada. Ver README.
      META_PIXEL_ID: id numérico del pixel de Meta. Vacío = no se carga.
@@ -22,7 +21,7 @@
       docDesc: "Acompañamiento para pymes y clínicas de Costa Rica que todavía no implementaron IA: diagnóstico, plan e implementación. Consultoría de Geiner Porras.",
       skip: "Ir al contenido",
       navProblema: "Problema", navIncluye: "Incluye", navProceso: "Proceso",
-      navQuien: "Para quién", navSobre: "Sobre mí", navFaq: "FAQ", navCta: "Diagnóstico",
+      navQuien: "Para quién", navCaso: "Caso", navSobre: "Sobre mí", navFaq: "FAQ", navCta: "Diagnóstico",
       menuRoot: "consultoria/", menuOpen: "Abrir menú", menuClose: "Cerrar menú", menuNav: "Secciones",
       avail: "Consultoría de IA",
       heroTitle1: "La IA en tu negocio,", heroTitle2: "con guía",
@@ -73,6 +72,14 @@
       m2: "de confirmación",
       m3: "de reagendamiento",
       pilotSource: "Piloto de Abdi en 2 clínicas dentales",
+      hCaso: "Caso",
+      casoQuip: "Acompañamiento de consultoría para una agencia de tours. Es aparte del piloto de Abdi en clínicas dentales.",
+      casoKind: "Agencia de tours",
+      casoProblemLabel: "El problema",
+      casoProblem: "Problemas de servicio al cliente y de cierre de reservas.",
+      casoWorkLabel: "Qué se hizo",
+      casoWork: "Geiner analizó los procesos de ventas y de administración paso a paso, encontró los cuellos de botella y aplicó el Método Abdi con una estrategia de captación y ventas con IA. Implementó una landing de tours y un CRM personalizado, con un agente de IA que responde consultas 24/7 y un proceso de reserva estructurado.",
+      casoResult: "de ventas en el primer mes, según reporta el dueño, con mejoras que continúan. La cifra sale del reporte de Geiner: no está verificada de forma independiente y no es una garantía de resultado.",
       hSobre: "Sobre Geiner",
       aboutQ: "Quién guía",
       about1: "Geiner Porras Vargas es ingeniero de software e IA en Costa Rica. Fundó Abdismart, donde construyó Abdi CRM: un agente para consultorios y clínicas que atiende WhatsApp, Messenger e Instagram.",
@@ -137,7 +144,7 @@
       docDesc: "Hands-on help for Costa Rican SMBs and clinics that have not put AI into their operations yet: diagnostic, plan and implementation.",
       skip: "Skip to content",
       navProblema: "Problem", navIncluye: "Includes", navProceso: "Process",
-      navQuien: "Who it's for", navSobre: "About", navFaq: "FAQ", navCta: "Diagnostic",
+      navQuien: "Who it's for", navCaso: "Case", navSobre: "About", navFaq: "FAQ", navCta: "Diagnostic",
       menuRoot: "consulting/", menuOpen: "Open menu", menuClose: "Close menu", menuNav: "Sections",
       avail: "AI consulting",
       heroTitle1: "AI in your business,", heroTitle2: "with a guide",
@@ -188,6 +195,14 @@
       m2: "confirmation",
       m3: "rescheduling",
       pilotSource: "Abdi pilot in 2 dental clinics",
+      hCaso: "Case",
+      casoQuip: "A consulting engagement for a tour agency. Separate from the Abdi pilot in dental clinics.",
+      casoKind: "Tour agency",
+      casoProblemLabel: "The problem",
+      casoProblem: "Customer-service and booking-closing problems.",
+      casoWorkLabel: "What was done",
+      casoWork: "Geiner analyzed the sales and admin processes step by step, found the bottlenecks, and applied the Abdi Method with an AI acquisition and sales strategy. He implemented a tour landing page and a personalized CRM, with an AI agent answering inquiries 24/7 and a structured booking process.",
+      casoResult: "sales in the first month, as the owner reports, with ongoing improvements. The figure comes from Geiner's report: it is not independently verified and it is not a guaranteed outcome.",
       hSobre: "About Geiner",
       aboutQ: "Who guides",
       about1: "Geiner Porras Vargas is an AI and software engineer in Costa Rica. He founded Abdismart, where he built Abdi CRM: an agent for practices and clinics that handles WhatsApp, Messenger and Instagram.",
@@ -270,7 +285,7 @@
   function formatWa(digits) {
     if (digits.startsWith("506") && digits.length === 11) {
       const rest = digits.slice(3);
-      return "+506 " + rest.slice(0, 4) + "-" + rest.slice(4);
+      return "+506 " + rest.slice(0, 4) + " " + rest.slice(4);
     }
     return "+" + digits;
   }
